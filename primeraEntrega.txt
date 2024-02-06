@@ -1,0 +1,6 @@
+Cosas listas para entrega 1 proyecto Vue:
+
+-Estructura carpetas, módulos, layouts ✅
+-Páginas de la app ✅
+-Enrutamiento(Lazy load) ✅
+-Página contacto validada ✅
