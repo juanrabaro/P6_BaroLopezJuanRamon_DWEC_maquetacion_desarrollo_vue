@@ -1,6 +1,16 @@
 <script>
 export default {
   name: 'Header',
+  props: {
+    logout: Function,
+    isLogged: Boolean,
+  },
+  methods: {
+    onLogout() {
+      console.log("logged out")
+      this.logout()
+    },
+  },
 }
 </script>
 
@@ -13,10 +23,11 @@ export default {
     <nav>
       <router-link to="/">Home</router-link>
       <router-link to="/world-time">World Time</router-link>
-      <router-link to="/search-history">Search History</router-link>
       <router-link to="/compare-weathers">Compare Weathers</router-link>
+      <router-link v-if="isLogged" to="/search-history">Search History</router-link>
       <router-link to="/contact">Contact us</router-link>
-      <router-link to="/" class="log-in-button">Log In</router-link>
+      <router-link v-if="!isLogged" to="/" class="log-in-button">Log In</router-link>
+      <router-link v-else-if="isLogged" @click="onLogout" to="/" class="log-in-button">Log Out</router-link>
     </nav>
   </header>
 </template>

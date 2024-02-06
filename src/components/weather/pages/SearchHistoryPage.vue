@@ -1,6 +1,14 @@
 <script>
 export default {
-  name: 'SearchHistoryPage'
+  name: 'SearchHistoryPage',
+  props: {
+    isLogged: Boolean,
+  },
+  created() {
+    if (!this.isLogged) {
+      this.$router.push('/');
+    }
+  },
 }
 </script>
 
