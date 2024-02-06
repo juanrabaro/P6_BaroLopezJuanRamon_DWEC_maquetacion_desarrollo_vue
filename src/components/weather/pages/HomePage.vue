@@ -7,26 +7,16 @@ export default {
     isLogged: Boolean,
     userName: String,
   },
-  // data() {
-  //   return {
-  //     userName: "",
-  //   }
-  // },
   methods: {
     onLogin(user) {
       console.log(user)
       console.log("signing in");
       this.login(user)
-      // this.userName = user
     },
     onLogout() {
       console.log("logged out")
       this.logout()
-      // this.userName = ""
     },
-    // userLogged() {
-    //   return this.userName
-    // }
   },
 }
 </script>
