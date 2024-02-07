@@ -1,6 +1,10 @@
 <script>
+import SignInForm from './SignInForm.vue';
 export default {
   name: 'HomePage',
+  components: {
+    SignInForm,
+},
   props: {
     login: Function,
     logout: Function,
@@ -8,11 +12,6 @@ export default {
     userName: String,
   },
   methods: {
-    onLogin(user) {
-      console.log(user)
-      console.log("signing in");
-      this.login(user)
-    },
     onLogout() {
       console.log("logged out")
       this.logout()
@@ -25,13 +24,16 @@ export default {
   <main>
     <h1>Home Page</h1>
     <h2 v-if="userName.length > 0">Hello {{ userName }}</h2>
-    <button @click="()=>onLogin('UserPrueba')">Sign In</button>
+    <SignInForm :login="login" />
     <button @click="onLogout">Log Out</button>
   </main>
 </template>
 
-<style scoped>
-  h1 {
-    margin: 0;
+<style scoped lang="scss">
+  @import '/src/assets/styles/main.scss';
+
+  main {
+    @include flex(column, flex-start, center, 10px);
+    border: 2px solid black;
   }
 </style>

@@ -11,6 +11,14 @@ export default {
       this.logout()
     },
   },
+  created() {
+    console.log("header", this.isLogged)
+  },
+  watch: {
+    llega() {
+      console.log("header llega")
+    }
+  }
 }
 </script>
 
@@ -26,7 +34,7 @@ export default {
       <router-link to="/compare-weathers">Compare Weathers</router-link>
       <router-link v-if="isLogged" to="/search-history">Search History</router-link>
       <router-link to="/contact">Contact us</router-link>
-      <router-link v-if="!isLogged" to="/" class="log-in-button">Log In</router-link>
+      <router-link v-if="!isLogged" to="/" class="log-in-button">Sign In</router-link>
       <router-link v-else-if="isLogged" @click="onLogout" to="/" class="log-in-button">Log Out</router-link>
     </nav>
   </header>
