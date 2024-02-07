@@ -13,17 +13,17 @@ export default {
   },
   methods: {
     login(user) {
-      if (JSON.parse(window.localStorage.getItem('userLoggedWeatherHub')) === true) {
+      if (JSON.parse(window.localStorage.getItem('userLoggedWeatherHub')) === true || user === "") {
         return
       }
-      this.$store.dispatch('setUser', user)
+      // this.$store.dispatch('setUser', user)
       window.localStorage.setItem('userLoggedWeatherHub', JSON.stringify(true))
       window.localStorage.setItem('userWeatherHub', JSON.stringify(user))
       this.userName = user
       this.userLogged = true
     },
     logout() {
-      this.$store.dispatch('setUser', null)
+      // this.$store.dispatch('setUser', null)
       window.localStorage.removeItem('userLoggedWeatherHub')
       window.localStorage.removeItem('userWeatherHub')
       this.userName = ""
@@ -40,7 +40,7 @@ export default {
     },
     isUserLoggedIn() {
       // console.log(this.$store.getters.isUserLoggedIn);
-      return this.$store.getters.isUserLoggedIn
+      // return this.$store.getters.isUserLoggedIn
     }
   },
   created() {

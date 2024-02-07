@@ -5,6 +5,11 @@ export default {
     logout: Function,
     isLogged: Boolean,
   },
+  data() {
+    return {
+      test: true
+    }
+  },
   methods: {
     onLogout() {
       console.log("logged out")
@@ -12,12 +17,19 @@ export default {
     },
   },
   created() {
-    console.log("header", this.isLogged)
+    // console.log("header", this.isLogged)
   },
   watch: {
-    llega() {
-      console.log("header llega")
+    isLogged(oldValue, newValue ) {
+      console.log(oldValue)
+      console.log(newValue)
     }
+  },
+  computed: {
+    // nose() {
+    //   console.log(`computed ${this.isLogged}`)
+    //   return `computed ${this.isLogged}`
+    // }
   }
 }
 </script>
@@ -28,6 +40,7 @@ export default {
       <img src="/cloud_3220.png" alt="IMGLOGO">
       <h2>WeatherHub</h2>
     </div>
+    <!-- <p>{{ nose }}</p> -->
     <nav>
       <router-link to="/">Home</router-link>
       <router-link to="/world-time">World Time</router-link>
