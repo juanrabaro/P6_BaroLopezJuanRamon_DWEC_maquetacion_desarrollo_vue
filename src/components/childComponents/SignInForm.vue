@@ -30,7 +30,7 @@ export default {
         this.validationMessage = ""
       }
 
-      if (this.userData.inputEmail.length > 0 && !this.userData.inputEmail.includes('@') && !this.userData.inputEmail.includes('.')) {
+      if (this.userData.inputEmail.length > 0 && !this.userData.inputEmail.includes('@') || !this.userData.inputEmail.includes('.')) {
         this.validationMessage = "The email is not in the correct format"
         this.allReady = false
         return
@@ -94,6 +94,11 @@ form {
   
   button:hover {
     background-color: rgb(46, 46, 98);
+  }
+
+  p {
+    max-width: 70%;
+    text-align: center;
   }
   
   button:disabled {

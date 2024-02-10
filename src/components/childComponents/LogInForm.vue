@@ -10,7 +10,9 @@ export default {
       userData: {
         inputEmail: "",
         inputPassword: "",
-      }
+      },
+      allReady: false,
+      validationMessage: "",
     }
   },
   methods: {
@@ -19,6 +21,35 @@ export default {
       console.log("logging in")
       this.login(user)
     },
+    validateForm() {
+      if (this.userData.inputEmail.length > 0 && !this.userData.inputEmail.includes('@') || !this.userData.inputEmail.includes('.')) {
+        this.validationMessage = "The email is not in the correct format"
+        this.allReady = false
+        return
+      } else {
+        this.validationMessage = ""
+      }
+      
+
+      if (this.userData.inputPassword.length < 8 && this.userData.inputPassword.length > 0) {
+        this.validationMessage = "The password must have at least 8 characters"
+        this.allReady = false
+        return
+      } else {
+        this.validationMessage = ""
+      }
+      
+
+      if ( this.userData.inputEmail.length < 1 || this.userData.inputPassword.length < 1 ) {
+        this.allReady = false
+        return
+      } else {
+        this.validationMessage = ""
+      }
+      
+      this.validationMessage = ""
+      this.allReady = true
+    },
   }
 }
 </script>
@@ -26,10 +57,11 @@ export default {
 <template>
   <form v-on:submit.prevent="sendMessage">
     <h2>Log In</h2>
-    <input type="email" v-model="userData.inputEmail" placeholder="Email" />
-    <input type="password" v-model="userData.inputPassword" placeholder="Password" />
-    <button @click="()=>onLogin(userData)">Log In</button>
-    <p v-if="userExistMessage.length > 1">{{ userExistMessage }}</p>
+    <input type="email" v-on:input="validateForm" v-model="userData.inputEmail" placeholder="Email" />
+    <input type="password" v-on:input="validateForm" v-model="userData.inputPassword" placeholder="Password" />
+    <button v-bind:disabled="!allReady" @click="()=>onLogin(userData)">Log In</button>
+    <p v-if="validationMessage.length">{{ validationMessage }}</p>
+    <p v-if="userExistMessage.length">{{ userExistMessage }}</p>
   </form>
 </template>
 
@@ -59,6 +91,10 @@ form {
   p {
     max-width: 70%;
     text-align: center;
+  }
+
+  button:disabled {
+    background-color: rgb(95, 95, 137);
   }
 }
 </style>
