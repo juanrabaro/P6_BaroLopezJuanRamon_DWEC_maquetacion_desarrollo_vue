@@ -1,0 +1,6 @@
+Cosas listas para entrega 2 proyecto Vue:
+
+-Login y register ✅
+-Validados
+-Maquetados
+-Al menos una llamada a API(o json)

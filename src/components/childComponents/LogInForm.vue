@@ -8,7 +8,6 @@ export default {
   data() {
     return {
       userData: {
-        // inputUsername: "",
         inputEmail: "",
         inputPassword: "",
       }
@@ -20,9 +19,6 @@ export default {
       console.log("logging in")
       this.login(user)
     },
-    sendMessage() {
-      console.log("enviado");
-    }
   }
 }
 </script>
@@ -30,7 +26,6 @@ export default {
 <template>
   <form v-on:submit.prevent="sendMessage">
     <h2>Log In</h2>
-    <!-- <input type="text" v-model="userData.inputUsername" placeholder="Username" /> -->
     <input type="email" v-model="userData.inputEmail" placeholder="Email" />
     <input type="password" v-model="userData.inputPassword" placeholder="Password" />
     <button @click="()=>onLogin(userData)">Log In</button>

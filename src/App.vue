@@ -14,9 +14,6 @@ export default {
   },
   methods: {
     sigin(user) {
-      if (JSON.parse(window.localStorage.getItem('userLoggedWeatherHub')) === true || user.inputUsername === "" || user.inputEmail === "" || user.inputPassword === "") {
-        return
-      }
       const users = JSON.parse(window.localStorage.getItem('usersWeatherHub')) || []
       users.push(user)
       window.localStorage.setItem('usersWeatherHub', JSON.stringify(users))
@@ -26,9 +23,6 @@ export default {
       this.userLogged = true
     },
     login(user) {
-      if (JSON.parse(window.localStorage.getItem('userLoggedWeatherHub')) === true || user.inputEmail === "" || user.inputPassword === "") {
-        return
-      }
       const users = JSON.parse(window.localStorage.getItem('usersWeatherHub')) || []
       const userExist = users.filter((userE) => {
         if ( userE.inputEmail === user.inputEmail && userE.inputPassword === user.inputPassword ) {

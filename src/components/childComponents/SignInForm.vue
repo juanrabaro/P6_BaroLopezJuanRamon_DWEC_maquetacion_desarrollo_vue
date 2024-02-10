@@ -10,7 +10,9 @@ export default {
         inputUsername: "",
         inputEmail: "",
         inputPassword: "",
-      }
+      },
+      allReady: false,
+      validationMessage: "",
     }
   },
   methods: {
@@ -19,8 +21,42 @@ export default {
       console.log("signing in")
       this.sigin(user)
     },
-    sendMessage() {
-      console.log("enviado");
+    validateForm() {
+      if (this.userData.inputUsername.length < 8 && this.userData.inputUsername.length > 0) {
+        this.validationMessage = "The username must have at least 8 characters"
+        this.allReady = false
+        return
+      } else {
+        this.validationMessage = ""
+      }
+
+      if (this.userData.inputEmail.length > 0 && !this.userData.inputEmail.includes('@') && !this.userData.inputEmail.includes('.')) {
+        this.validationMessage = "The email is not in the correct format"
+        this.allReady = false
+        return
+      } else {
+        this.validationMessage = ""
+      }
+      
+
+      if (this.userData.inputPassword.length < 8 && this.userData.inputPassword.length > 0) {
+        this.validationMessage = "The password must have at least 8 characters"
+        this.allReady = false
+        return
+      } else {
+        this.validationMessage = ""
+      }
+      
+
+      if ( this.userData.inputUsername.length < 1 || this.userData.inputEmail.length < 1 || this.userData.inputPassword.length < 1 ) {
+        this.allReady = false
+        return
+      } else {
+        this.validationMessage = ""
+      }
+      
+      this.validationMessage = ""
+      this.allReady = true
     }
   }
 }
@@ -29,10 +65,11 @@ export default {
 <template>
   <form v-on:submit.prevent="sendMessage">
     <h2>Sign In</h2>
-    <input type="text" v-model="userData.inputUsername" placeholder="Username" />
-    <input type="email" v-model="userData.inputEmail" placeholder="Email" />
-    <input type="password" v-model="userData.inputPassword" placeholder="Password" />
-    <button @click="()=>onSigin(userData)">Sign In</button>
+    <input type="text" v-on:input="validateForm" v-model="userData.inputUsername" placeholder="Username" />
+    <input type="email" v-on:input="validateForm" v-model="userData.inputEmail" placeholder="Email" />
+    <input type="password" v-on:input="validateForm" v-model="userData.inputPassword" placeholder="Password" />
+    <button v-bind:disabled="!allReady" @click="()=>onSigin(userData)">Sign In</button>
+    <p v-if="validationMessage.length > 1">{{ validationMessage }}</p>
   </form>
 </template>
 
@@ -57,6 +94,10 @@ form {
   
   button:hover {
     background-color: rgb(46, 46, 98);
+  }
+  
+  button:disabled {
+    background-color: rgb(95, 95, 137);
   }
 }
 </style>
