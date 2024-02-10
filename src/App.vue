@@ -1,5 +1,5 @@
 <script>
-import Header from './components/shared/Header.vue';
+import Header from './components/layout/Header.vue';
 
 export default {
   components: {
@@ -8,40 +8,57 @@ export default {
   data() {
     return {
       userLogged: false,
-      userName: "",
+      user: {},
+      userExistMessage: "",
     }
   },
   methods: {
-    login(user) {
-      if (JSON.parse(window.localStorage.getItem('userLoggedWeatherHub')) === true || user === "") {
+    sigin(user) {
+      if (JSON.parse(window.localStorage.getItem('userLoggedWeatherHub')) === true || user.inputUsername === "" || user.inputEmail === "" || user.inputPassword === "") {
         return
       }
-      // this.$store.dispatch('setUser', user)
+      const users = JSON.parse(window.localStorage.getItem('usersWeatherHub')) || []
+      users.push(user)
+      window.localStorage.setItem('usersWeatherHub', JSON.stringify(users))
       window.localStorage.setItem('userLoggedWeatherHub', JSON.stringify(true))
       window.localStorage.setItem('userWeatherHub', JSON.stringify(user))
-      this.userName = user
+      this.user = user
+      this.userLogged = true
+    },
+    login(user) {
+      if (JSON.parse(window.localStorage.getItem('userLoggedWeatherHub')) === true || user.inputEmail === "" || user.inputPassword === "") {
+        return
+      }
+      const users = JSON.parse(window.localStorage.getItem('usersWeatherHub')) || []
+      const userExist = users.filter((userE) => {
+        if ( userE.inputEmail === user.inputEmail && userE.inputPassword === user.inputPassword ) {
+          return user
+        }
+      })
+      if ( !userExist.length ) {
+        this.userExistMessage = "Ups... the user does not exist or the password is incorrect"
+        return
+      }
+      window.localStorage.setItem('userLoggedWeatherHub', JSON.stringify(true))
+      window.localStorage.setItem('userWeatherHub', JSON.stringify(userExist[0]))
+      this.user = userExist[0]
       this.userLogged = true
     },
     logout() {
-      // this.$store.dispatch('setUser', null)
       window.localStorage.removeItem('userLoggedWeatherHub')
       window.localStorage.removeItem('userWeatherHub')
       this.userName = ""
+      this.user = { inputUsername: "" }
       this.userLogged = false
     },
     validateUserLogged() {
       this.userLogged = JSON.parse(window.localStorage.getItem('userLoggedWeatherHub')) || false
-      this.userName = JSON.parse(window.localStorage.getItem('userWeatherHub')) || ""
-      if (this.userLogged) {
-        this.login(this.userName)
+      this.user = JSON.parse(window.localStorage.getItem('userWeatherHub')) || {}
+      if (!this.userLogged) {
+        this.user = { inputUsername: "" }
         return
       }
-      this.userName = ""
     },
-    isUserLoggedIn() {
-      // console.log(this.$store.getters.isUserLoggedIn);
-      // return this.$store.getters.isUserLoggedIn
-    }
   },
   created() {
     this.validateUserLogged()
@@ -51,7 +68,8 @@ export default {
 
 <template>
   <Header :logout="logout" :isLogged="userLogged" />
-  <RouterView :login="login" :logout="logout" :isLogged="userLogged" :validateUserLogged="validateUserLogged" :userName="userName" />
+  <!-- <RouterView :login="login" :logout="logout" :isLogged="userLogged" :validateUserLogged="validateUserLogged" :userName="userName" /> -->
+  <RouterView :sigin="sigin" :login="login" :logout="logout" :isLogged="userLogged" :validateUserLogged="validateUserLogged" :user="user" :userExistMessage="userExistMessage" />
 </template>
 
 <style scoped lang="scss">
