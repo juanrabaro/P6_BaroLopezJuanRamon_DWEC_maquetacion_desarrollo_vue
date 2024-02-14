@@ -3,6 +3,7 @@ export default {
   name: 'SignInForm',
   props: {
     sigin: Function,
+    userExistMessage: String,
   },
   data() {
     return {
@@ -19,7 +20,6 @@ export default {
     onSigin(user) {
       console.log(user)
       console.log("signing in")
-      this.sigin(user)
     },
     validateForm() {
       if (this.userData.inputUsername.length < 8 && this.userData.inputUsername.length > 0) {
@@ -65,11 +65,33 @@ export default {
 <template>
   <form v-on:submit.prevent="sendMessage">
     <h2>Sign In</h2>
-    <input type="text" v-on:input="validateForm" v-model="userData.inputUsername" placeholder="Username" />
-    <input type="email" v-on:input="validateForm" v-model="userData.inputEmail" placeholder="Email" />
-    <input type="password" v-on:input="validateForm" v-model="userData.inputPassword" placeholder="Password" />
+    <div class="container">
+      <div class="label-container">
+        <label for="username">Username</label>
+      </div>
+      <div class="input-container">
+        <input id="username" type="text" v-on:input="validateForm" v-model="userData.inputUsername" placeholder="ManuelApruebame" />
+      </div>
+    </div>
+    <div class="container">
+      <div class="label-container">
+        <label for="email">Email</label>
+      </div>
+      <div class="input-container">
+        <input id="email" type="email" v-on:input="validateForm" v-model="userData.inputEmail" placeholder="manuelapruebame@gmail.com" />
+      </div>
+    </div>
+    <div class="container">
+      <div class="label-container">
+        <label for="password">Password</label>
+      </div>
+      <div class="input-container">
+        <input id="password" type="password" v-on:input="validateForm" v-model="userData.inputPassword" placeholder="Password" />
+      </div>
+    </div>
     <button v-bind:disabled="!allReady" @click="()=>onSigin(userData)">Sign In</button>
     <p v-if="validationMessage.length > 1">{{ validationMessage }}</p>
+    <p v-if="userExistMessage.length">{{ userExistMessage }}</p>
   </form>
 </template>
 
@@ -78,22 +100,71 @@ export default {
 
 form {
   @include flex(column, center, center, 10px);
+  width: 20%;
+  border-right: 5px solid rgb(36, 49, 98);
+  padding-right: 30px;
 
   h2 {
+    font-size: 33px;
     margin: 0;
+    padding-bottom: 20px;
+  }
+
+  .container {
+    @include flex(row, space-between, center);
+    border: 3px solid rgb(42, 59, 130);
+    border-radius: 7px;
+    width: 100%;
+
+    .label-container {
+      @include flex(row, center, center);
+      background-color: rgb(42, 59, 130);
+      border-right: 3px solid rgb(42, 59, 130);
+      color: rgb(224, 244, 252);
+      height: 21px;
+      width: 35%;
+      
+      label {
+        padding: 7px 5px 7px 6px;
+      }
+    }
+    .input-container {
+      @include flex(row, center, center);
+      background-color: rgb(209, 218, 233);
+      width: 65%;
+      height: 19px;
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+
+      input {
+        border-radius: 0;
+        border: 1px;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        padding-left: 5px;
+        background-color: inherit;
+        width: 100%;
+        height: 100%;
+      }
+      input:focus {
+        border-color: red;
+      }
+    }
   }
 
   button {
-    padding: 5px 10px;
+    background-color: rgb(42, 59, 130);
+    padding: 7px 30px;
+    margin-top: 7px;
+    font-size: 17px;
     border-radius: 5px;
-    background-color: rgb(56, 87, 148);
     color: white;
     border: none;
     cursor: pointer;
   }
   
   button:hover {
-    background-color: rgb(46, 46, 98);
+    background-color: rgb(5, 20, 88);
   }
 
   p {

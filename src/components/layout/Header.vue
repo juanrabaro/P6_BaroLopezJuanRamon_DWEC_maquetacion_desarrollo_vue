@@ -46,7 +46,7 @@ export default {
       <router-link to="/world-time">World Time</router-link>
       <router-link to="/compare-weathers">Compare Weathers</router-link>
       <router-link v-if="isLogged" to="/search-history">Search History</router-link>
-      <router-link to="/contact">Contact us</router-link>
+      <router-link to="/contact">Contact Us</router-link>
       <router-link v-if="!isLogged" to="/" class="log-in-button">Sign In</router-link>
       <router-link v-else-if="isLogged" @click="onLogout" to="/" class="log-in-button">Log Out</router-link>
     </nav>
@@ -59,8 +59,9 @@ export default {
     justify-content: space-between;
     align-items: center;
     height: 15vh;
-    border: 2px black solid;
+    //border: 2px black solid;
     padding: 0 25px 0 25px;
+    font-size: 18px;
 
     a {
       text-decoration: none;
@@ -97,14 +98,14 @@ export default {
       .log-in-button {
         padding: 5px 10px;
         border-radius: 5px;
-        background-color: rgb(56, 87, 148);
+        background-color: rgb(42, 59, 130);
         color: white;
         border: none;
         cursor: pointer;
       }
 
       .log-in-button:hover {
-        background-color: rgb(46, 46, 98);
+        background-color: rgb(5, 20, 88);
       }
     }
   }

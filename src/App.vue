@@ -10,11 +10,24 @@ export default {
       userLogged: false,
       user: {},
       userExistMessage: "",
+      userNotExistMessage: "",
     }
   },
   methods: {
     sigin(user) {
       const users = JSON.parse(window.localStorage.getItem('usersWeatherHub')) || []
+
+      const userExist = users.filter((userE) => {
+        if ( userE.inputEmail === user.inputEmail ) {
+          return user
+        }
+      })
+      if ( userExist.length ) {
+        this.userExistMessage = "Ups... the user already exist"
+        return
+      }
+      
+      this.userExistMessage = ""
       users.push(user)
       window.localStorage.setItem('usersWeatherHub', JSON.stringify(users))
       window.localStorage.setItem('userLoggedWeatherHub', JSON.stringify(true))
@@ -30,7 +43,7 @@ export default {
         }
       })
       if ( !userExist.length ) {
-        this.userExistMessage = "Ups... the user does not exist or the password is incorrect"
+        this.userNotExistMessage = "Ups... the user does not exist or the password is incorrect"
         return
       }
       window.localStorage.setItem('userLoggedWeatherHub', JSON.stringify(true))
@@ -63,12 +76,12 @@ export default {
 <template>
   <Header :logout="logout" :isLogged="userLogged" />
   <!-- <RouterView :login="login" :logout="logout" :isLogged="userLogged" :validateUserLogged="validateUserLogged" :userName="userName" /> -->
-  <RouterView :sigin="sigin" :login="login" :logout="logout" :isLogged="userLogged" :validateUserLogged="validateUserLogged" :user="user" :userExistMessage="userExistMessage" />
+  <RouterView :sigin="sigin" :login="login" :logout="logout" :isLogged="userLogged" :validateUserLogged="validateUserLogged" :user="user" :userExistMessage="userExistMessage" :userNotExistMessage="userNotExistMessage" />
 </template>
 
 <style scoped lang="scss">
   main {
-    height: 85vh;
+    //height: 85vh;
     margin: 0;
   }
 </style>

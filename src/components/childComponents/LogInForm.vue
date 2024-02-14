@@ -3,7 +3,7 @@ export default {
   name: 'LogInForm',
   props: {
     login: Function,
-    userExistMessage: String,
+    userNotExistMessage: String,
   },
   data() {
     return {
@@ -61,7 +61,7 @@ export default {
     <input type="password" v-on:input="validateForm" v-model="userData.inputPassword" placeholder="Password" />
     <button v-bind:disabled="!allReady" @click="()=>onLogin(userData)">Log In</button>
     <p v-if="validationMessage.length">{{ validationMessage }}</p>
-    <p v-if="userExistMessage.length">{{ userExistMessage }}</p>
+    <p v-if="userNotExistMessage.length">{{ userNotExistMessage }}</p>
   </form>
 </template>
 
@@ -70,6 +70,7 @@ export default {
 
 form {
   @include flex(column, center, center, 10px);
+  width: 20%;
 
   h2 {
     margin: 0;
