@@ -63,9 +63,10 @@ export default {
     <section class="search-section">
       <h1>Welcome to WeatherHub</h1>
       <p>Get detailed weather and time information</p>
-      <p>(NO FUNCIONA POR AHORA)</p>
+      <p>(el buscador por ahora no funciona)</p>
       <input type="text" placeholder="Search for a city">
-      <p>HACER CLICK EN SEARCH PARA HACER LLAMADA A LA API(TODAVÍA NO VIENE DE LA API)</p>
+      <p>Hacer click en SEARCH para hacer la llamada a la API(TODAVÍA NO VIENE DE LA API)</p>
+      <p>Lo que hace es rellenar los datos de temperatura, humedad y viento</p>
       <button v-on:click="search">Search</button>
       <p v-if="exampleCityTimeData" class="result">Resultados para <span>Cádiz</span></p>
     </section>
@@ -153,7 +154,7 @@ export default {
       }
       .result {
         font-size: 30px;
-        margin-top: 50px;
+        margin-top: 25px;
 
         span {
           color: blue;

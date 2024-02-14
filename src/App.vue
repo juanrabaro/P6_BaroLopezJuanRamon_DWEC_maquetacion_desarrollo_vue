@@ -46,6 +46,8 @@ export default {
         this.userNotExistMessage = "Ups... the user does not exist or the password is incorrect"
         return
       }
+
+      this.userNotExistMessage = ""
       window.localStorage.setItem('userLoggedWeatherHub', JSON.stringify(true))
       window.localStorage.setItem('userWeatherHub', JSON.stringify(userExist[0]))
       this.user = userExist[0]
