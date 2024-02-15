@@ -9,7 +9,6 @@ export default {
   components: {
     SignInForm,
     LogInForm,
-    LogInForm
   },
   data() {
     return {
@@ -18,19 +17,10 @@ export default {
     }
   },
   props: {
-    login: Function,
-    logout: Function,
     isLogged: Boolean,
     user: Object,
-    userExistMessage: String,
-    userNotExistMessage: String,
-    sigin: Function,
   },
   methods: {
-    onLogout() {
-      console.log("logged out")
-      this.logout()
-    },
     async fetchData() {
       fetch('http://localhost/api/ciudades')
         .then(response => response.json())
@@ -53,7 +43,7 @@ export default {
     },
   },
   created() {
-    // this.fetchData()
+    // this.fetchData();
   },
 }
 </script>
@@ -63,19 +53,18 @@ export default {
     <section class="search-section">
       <h1>Welcome to WeatherHub</h1>
       <p>Get detailed weather and time information</p>
-      <p>(el buscador por ahora no funciona)</p>
+      <!-- <p>(el buscador por ahora no funciona)</p> -->
       <input type="text" placeholder="Search for a city">
-      <p>Hacer click en SEARCH para hacer la llamada a la API(TODAVÍA NO VIENE DE LA API)</p>
-      <p>Lo que hace es rellenar los datos de temperatura, humedad y viento</p>
+      <!-- <p>Hacer click en SEARCH para hacer la llamada a la API(TODAVÍA NO VIENE DE LA API)</p> -->
+      <!-- <p>Lo que hace es rellenar los datos de temperatura, humedad y viento</p> -->
       <button v-on:click="search">Search</button>
       <p v-if="exampleCityTimeData" class="result">Resultados para <span>Cádiz</span></p>
     </section>
-    <!-- <h2 v-if="user.inputUsername.length > 0">Hello {{ user.inputUsername }}</h2> -->
+    
     <section class="weather-details">
       <div class="weather-details-left">
         <h1>Weather Details</h1>
         <p>Get detailed weather information for any selected city</p>
-        <p>(NO FUNCIONA POR AHORA)</p>
         <button>Compare Locations</button>
       </div>
       <div class="weather-details-right">
@@ -98,10 +87,9 @@ export default {
       </div>
     </section>
     <section v-if="!isLogged" class="log-section">
-      <SignInForm :sigin="sigin" :userExistMessage="userExistMessage" />
-      <LogInForm :login="login" :userNotExistMessage="userNotExistMessage" />
+      <SignInForm/>
+      <LogInForm/>
     </section>
-    <!-- <button @click="onLogout">Log Out</button> -->
   </main>
 </template>
 
@@ -109,11 +97,9 @@ export default {
   @import '/src/assets/styles/main.scss';
 
   main {
-    //border: 2px solid black;
 
     .search-section {
       @include flex(column, center, center);
-      //border: 2px solid black;
       width: 100%;
       height: 65vh;
       margin-bottom: 40px;
@@ -169,7 +155,6 @@ export default {
       padding-bottom: 20px;
 
       .weather-details-left {
-        //border: 1px solid black;
         width: 30%;
         padding: 15px 15px 15px 15px;
         
@@ -199,7 +184,6 @@ export default {
         }
       }
       .weather-details-right {
-        //border: 1px solid black;
         width: 30%;
         padding: 15px 15px 15px 15px;
         
@@ -265,7 +249,6 @@ export default {
 
     .log-section {
       @include flex(row, center, baseline);
-      //border: 2px solid black;
       border-top: 3px solid rgb(36, 49, 98);
       width: 100%;
       height: 250px;

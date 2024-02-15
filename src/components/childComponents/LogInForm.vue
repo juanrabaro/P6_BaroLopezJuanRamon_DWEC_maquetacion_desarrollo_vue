@@ -1,10 +1,6 @@
 <script>
 export default {
   name: 'LogInForm',
-  props: {
-    login: Function,
-    userNotExistMessage: String,
-  },
   data() {
     return {
       userData: {
@@ -13,13 +9,27 @@ export default {
       },
       allReady: false,
       validationMessage: "",
+      userNotExistMessage: "",
     }
   },
   methods: {
-    onLogin(user) {
-      console.log(user)
-      console.log("logging in")
-      this.login(user)
+    login(user) {
+      const users = JSON.parse(window.localStorage.getItem('usersWeatherHub')) || []
+      const userExist = users.filter((userE) => {
+        if ( userE.inputEmail === user.inputEmail && userE.inputPassword === user.inputPassword ) {
+          return user
+        }
+      })
+      if ( !userExist.length ) {
+        this.userNotExistMessage = "Ups... the user does not exist or the password is incorrect"
+        return
+      }
+
+      this.userNotExistMessage = ""
+      window.localStorage.setItem('userLoggedWeatherHub', JSON.stringify(true))
+      window.localStorage.setItem('userWeatherHub', JSON.stringify(userExist[0]))
+      this.$root.user = userExist[0]
+      this.$root.userLogged = true
     },
     validateForm() {
       if (this.userData.inputEmail.length > 0 && !this.userData.inputEmail.includes('@') || !this.userData.inputEmail.includes('.')) {
@@ -73,7 +83,7 @@ export default {
         <input id="password" type="password" v-on:input="validateForm" v-model="userData.inputPassword" placeholder="Password" />
       </div>
     </div>
-    <button v-bind:disabled="!allReady" @click="()=>onLogin(userData)">Log In</button>
+    <button v-bind:disabled="!allReady" @click="()=>login(userData)">Log In</button>
     <p v-if="validationMessage.length">{{ validationMessage }}</p>
     <p v-if="userNotExistMessage.length">{{ userNotExistMessage }}</p>
   </form>

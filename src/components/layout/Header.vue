@@ -2,35 +2,23 @@
 export default {
   name: 'Header',
   props: {
-    logout: Function,
     isLogged: Boolean,
-  },
-  data() {
-    return {
-      test: true
-    }
+    user: Object,
   },
   methods: {
-    onLogout() {
-      console.log("logged out")
-      this.logout()
+    logout() {
+      window.localStorage.removeItem('userLoggedWeatherHub')
+      window.localStorage.removeItem('userWeatherHub')
+      this.$root.user = { inputUsername: "" }
+      this.$root.userLogged = false
     },
-  },
-  created() {
-    // console.log("header", this.isLogged)
   },
   watch: {
     isLogged(oldValue, newValue ) {
-      console.log(oldValue)
-      console.log(newValue)
+      console.log("oldValue - ", oldValue)
+      console.log("newValue - ", newValue)
     }
   },
-  computed: {
-    // nose() {
-    //   console.log(`computed ${this.isLogged}`)
-    //   return `computed ${this.isLogged}`
-    // }
-  }
 }
 </script>
 
@@ -40,7 +28,7 @@ export default {
       <img src="/cloud_3220.png" alt="IMGLOGO">
       <h2>WeatherHub</h2>
     </div>
-    <!-- <p>{{ nose }}</p> -->
+
     <nav>
       <router-link to="/">Home</router-link>
       <router-link to="/world-time">World Time</router-link>
@@ -48,7 +36,7 @@ export default {
       <router-link v-if="isLogged" to="/search-history">Search History</router-link>
       <router-link to="/contact">Contact Us</router-link>
       <router-link v-if="!isLogged" to="/" class="log-in-button">Sign In</router-link>
-      <router-link v-else-if="isLogged" @click="onLogout" to="/" class="log-in-button">Log Out</router-link>
+      <router-link v-else-if="isLogged" @click="logout" to="/" class="log-in-button">Log Out</router-link>
     </nav>
   </header>
 </template>
