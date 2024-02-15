@@ -7,11 +7,14 @@ export default {
   },
   data() {
     return {
+      // variables globales para saber si el usuario está logueado y
+      // los datos del usuario en cuestion
       userLogged: false,
       user: {},
     }
   },
   methods: {
+    // Comprueba si el usuario está logueado al cargar la página
     validateUserLogged() {
       this.userLogged = JSON.parse(window.localStorage.getItem('userLoggedWeatherHub')) || false
       this.user = JSON.parse(window.localStorage.getItem('userWeatherHub')) || {}

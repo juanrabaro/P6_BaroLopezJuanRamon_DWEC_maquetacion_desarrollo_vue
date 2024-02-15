@@ -1,6 +1,6 @@
 <script>
-import SignInForm from '../childComponents/SignInForm.vue';
-import LogInForm from '../childComponents/LogInForm.vue';
+// import SignInForm from '../childComponents/SignInForm.vue';
+// import LogInForm from '../childComponents/LogInForm.vue';
 import UserControlForm from '../childComponents/UserControlForm.vue';
 
 import { exampleData } from '../../assets/exampleData/tiempoCiudad.js';
@@ -8,9 +8,9 @@ import { exampleData } from '../../assets/exampleData/tiempoCiudad.js';
 export default {
   name: 'HomePage',
   components: {
-    SignInForm,
-    LogInForm,
-    UserControlForm
+    // SignInForm,
+    // LogInForm,
+    UserControlForm,
 },
   data() {
     return {
@@ -23,11 +23,13 @@ export default {
     user: Object,
   },
   methods: {
+    // prueba para obtener los datos de una API de prueba
     async fetchData() {
       fetch('http://localhost/api/ciudades')
         .then(response => response.json())
         .then(data => console.log(data));
     },
+    // determina según la temperatura el estado del tiempo
     temperatureConclusion() {
       if (this.exampleCityTimeData.temperatura > 20) {
         this.temperatureConclusionResult = "Sunny";
@@ -37,14 +39,15 @@ export default {
         this.temperatureConclusionResult = "Cold";
       }
     },
+    // se ejecuta cuando se le da a buscar
+    // en el futuro tendrá las funcionalidades correspondientes
     search() {
-      console.log(exampleData);
       this.exampleCityTimeData = exampleData[0];
-      console.log(this.exampleCityTimeData);
       this.temperatureConclusion();
     },
   },
   created() {
+    // para cuando la API esté lista
     // this.fetchData();
   },
 }
@@ -86,8 +89,6 @@ export default {
       </div>
     </section>
     <section v-if="!isLogged" class="log-section">
-      <!-- <SignInForm/>
-      <LogInForm/> -->
       <UserControlForm/>
     </section>
   </main>

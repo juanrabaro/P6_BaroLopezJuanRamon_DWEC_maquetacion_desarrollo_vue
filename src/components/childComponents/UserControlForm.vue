@@ -16,6 +16,7 @@ export default {
     }
   },
   methods: {
+    // Vacía las variables de validación del formulario
     cleanVariables() {
       this.userData = {
         inputUsername: "",
@@ -27,6 +28,7 @@ export default {
       this.userExistMessage = ""
       this.userNotExistMessage = ""
     },
+    // Cambia el formulario de sign-in a log-in y viceversa
     changeForms() {
       if (this.actualForm === "sign-in") {
         this.actualForm = "log-in"
@@ -78,6 +80,7 @@ export default {
       this.$root.user = user
       this.$root.userLogged = true
     },
+    // Valida si el formulario es para sign  in
     validateSigIn() {
       if (this.userData.inputUsername.length < 8 && this.userData.inputUsername.length > 0) {
         this.validationMessage = "The username must have at least 8 characters"
@@ -115,6 +118,7 @@ export default {
       this.validationMessage = ""
       this.allReady = true
     },
+    // Valida si el formulario es para log in
     validateLogIn() {
       if (this.userData.inputEmail.length > 0 && !this.userData.inputEmail.includes('@') || !this.userData.inputEmail.includes('.')) {
         this.validationMessage = "The email is not in the correct format"
@@ -144,6 +148,7 @@ export default {
       this.validationMessage = ""
       this.allReady = true
     },
+    // Valida el formulario
     validateForm() {
       if (this.actualForm === "sign-in") {
         this.validateSigIn()

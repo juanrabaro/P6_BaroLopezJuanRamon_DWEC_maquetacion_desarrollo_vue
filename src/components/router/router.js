@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '../pages/HomePage.vue'
 
+// Define las rutas de la aplicación
 const routes = [
-  // { path: '/:pathMatch(.*)*', component: Pag404, redirect: '/'},
   { path: '/:pathMatch(.*)*', component: () => import('../pages/Pag404.vue')},
   { path: '/', component: HomePage },
   { path: '/world-time', component: () => import('../pages/WorldTime.vue') },

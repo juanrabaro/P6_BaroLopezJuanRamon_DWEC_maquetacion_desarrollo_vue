@@ -23,9 +23,6 @@ export default {
       this.enableButton = false;
     },
     validateInputs(label, value) {
-      // console.log(this.emailValidation);
-      // console.log(this.messageValidation);
-
       if (!this.emailValidation) {
         this.errorEmail = 'Email is not valid!!';
         this.allReady = false;
