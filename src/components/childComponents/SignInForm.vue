@@ -1,8 +1,6 @@
 <script>
 export default {
   name: 'SignInForm',
-  props: {
-  },
   data() {
     return {
       userData: {

@@ -1,6 +1,7 @@
 <script>
 import SignInForm from '../childComponents/SignInForm.vue';
 import LogInForm from '../childComponents/LogInForm.vue';
+import UserControlForm from '../childComponents/UserControlForm.vue';
 
 import { exampleData } from '../../assets/exampleData/tiempoCiudad.js';
 
@@ -9,7 +10,8 @@ export default {
   components: {
     SignInForm,
     LogInForm,
-  },
+    UserControlForm
+},
   data() {
     return {
       exampleCityTimeData: null,
@@ -53,10 +55,7 @@ export default {
     <section class="search-section">
       <h1>Welcome to WeatherHub</h1>
       <p>Get detailed weather and time information</p>
-      <!-- <p>(el buscador por ahora no funciona)</p> -->
       <input type="text" placeholder="Search for a city">
-      <!-- <p>Hacer click en SEARCH para hacer la llamada a la API(TODAVÍA NO VIENE DE LA API)</p> -->
-      <!-- <p>Lo que hace es rellenar los datos de temperatura, humedad y viento</p> -->
       <button v-on:click="search">Search</button>
       <p v-if="exampleCityTimeData" class="result">Resultados para <span>Cádiz</span></p>
     </section>
@@ -87,8 +86,9 @@ export default {
       </div>
     </section>
     <section v-if="!isLogged" class="log-section">
-      <SignInForm/>
-      <LogInForm/>
+      <!-- <SignInForm/>
+      <LogInForm/> -->
+      <UserControlForm/>
     </section>
   </main>
 </template>
