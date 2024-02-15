@@ -16,12 +16,12 @@ export default {
       if (this.$route.path !== '/') {
         this.$router.push('/').then(() => {
           this.$nextTick(() => {
-            document.body.scrollIntoView({ behavior: 'smooth' }, false);
-            return
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
           });
         });
+      } else {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
       }
-      document.body.scrollIntoView({ behavior: 'smooth' }, false);
     }
   },
   watch: {
@@ -30,9 +30,6 @@ export default {
       console.log("newValue - ", newValue)
     }
   },
-  created() {
-    console.log(this.$route);
-  }
 }
 </script>
 
