@@ -15,9 +15,11 @@ export default {
 },
   data() {
     return {
-      exampleCityTimeData: null,
+      // cityDataApi: null,
+      cityTimeData: null,
       exampleUsersData: null,
       temperatureConclusionResult: String,
+      searchInput: '',
     }
   },
   props: {
@@ -27,32 +29,47 @@ export default {
   methods: {
     // prueba para obtener los datos de una API de prueba
     async fetchData() {
-      fetch('http://localhost/api/ciudades')
-        .then(response => response.json())
-        .then(data => console.log(data));
+      try {
+        const response = await fetch('http://localhost/api/ciudades');
+        if (!response.ok) {
+          throw new Error('Error al obtener los datos');
+        }
+        const data = await response.json();
+        // this.cityDataApi = data.data;
+        return data.data
+        // console.log(this.cityDataApi);
+      } catch (error) {
+        console.error('Error:', error);
+      }
     },
     // determina según la temperatura el estado del tiempo
     temperatureConclusion() {
-      if (this.exampleCityTimeData[0].tiempoCiudad.temperaturaMin > 20) {
+      if (this.cityTimeData.tiempoCiudad.temperaturaMin > 20) {
         this.temperatureConclusionResult = "Sunny";
-      } else if (this.exampleCityTimeData[0].tiempoCiudad.temperaturaMin > 15) {
+      } else if (this.cityTimeData.tiempoCiudad.temperaturaMin > 15) {
         this.temperatureConclusionResult = "Cloudy";
       } else {
         this.temperatureConclusionResult = "Cold";
       }
     },
     // se ejecuta cuando se le da a buscar
-    // en el futuro tendrá las funcionalidades correspondientes
-    search() {
-      this.exampleCityTimeData = exampleDataCiudades.data;
-      this.exampleUsersData = exampleDataUsuarios.data;
-      this.temperatureConclusion();
-      console.log(this.exampleCityTimeData[0]);
+    async search() {
+      const cityDataApi = await this.fetchData();
+      const cityList = cityDataApi.map((city) => {
+        return city.nombreCiudad;
+      });
+      if ( cityList.includes(this.searchInput) ) {
+        const citySearched = cityList.indexOf(this.searchInput)
+        this.cityTimeData = cityDataApi[citySearched];
+        this.exampleUsersData = exampleDataUsuarios.data;
+        console.log(this.cityTimeData.tiempoCiudad.temperaturaMin);
+        this.temperatureConclusion();
+      }
     },
   },
   created() {
     // para cuando la API esté lista
-    // this.fetchData();
+    this.fetchData();
   },
 }
 </script>
@@ -62,9 +79,9 @@ export default {
     <section class="search-section">
       <h1>Welcome to WeatherHub</h1>
       <p>Get detailed weather and time information</p>
-      <input type="text" placeholder="Search for a city">
+      <input v-model="searchInput" type="text" placeholder="Search for a city">
       <button v-on:click="search">Search</button>
-      <p v-if="exampleCityTimeData" class="result">Resultados para <span>{{ exampleCityTimeData[0].nombreCiudad }}</span></p>
+      <p v-if="cityTimeData" class="result">Resultados para <span>{{ cityTimeData.nombreCiudad }}</span></p>
     </section>
     
     <section class="weather-details">
@@ -77,33 +94,33 @@ export default {
         <div class="temperature">
           <h3>Temperature</h3>
           <p>Current temperature in ºC</p>
-          <p v-if="exampleCityTimeData"><strong>{{ exampleCityTimeData[0].tiempoCiudad.temperaturaMax }}ºC - {{ exampleCityTimeData[0].tiempoCiudad.temperaturaMin }}ºC</strong></p>
-          <p v-if="exampleCityTimeData" class="conclusion">{{ temperatureConclusionResult }}</p>
+          <p v-if="cityTimeData"><strong>Max: {{ cityTimeData.tiempoCiudad.temperaturaMax }}ºC - Min: {{ cityTimeData.tiempoCiudad.temperaturaMin }}ºC</strong></p>
+          <p v-if="cityTimeData" class="conclusion">{{ temperatureConclusionResult }}</p>
         </div>
         <div class="humidity">
           <h3>Humidity</h3>
           <p>Current humidity level</p>
-          <p v-if="exampleCityTimeData"><strong>{{ exampleCityTimeData[0].tiempoCiudad.humedad }}%</strong></p>
+          <p v-if="cityTimeData"><strong>{{ cityTimeData.tiempoCiudad.humedad }}%</strong></p>
         </div>
         <div class="wind">
           <h3>Wind Speed</h3>
           <p>Current wind speed in km/h</p>
-          <p v-if="exampleCityTimeData"><strong>{{ exampleCityTimeData[0].tiempoCiudad.viento }}km/h</strong></p>
+          <p v-if="cityTimeData"><strong>{{ cityTimeData.tiempoCiudad.viento }}km/h</strong></p>
         </div>
         <div class="rain">
           <h3>Rain</h3>
           <p>Probabilities of rain</p>
-          <p v-if="exampleCityTimeData"><strong>{{ exampleCityTimeData[0].tiempoCiudad.precipitacion }}%</strong></p>
+          <p v-if="cityTimeData"><strong>{{ cityTimeData.tiempoCiudad.precipitacion }}%</strong></p>
         </div>
       </div>
     </section>
-    <section v-if="exampleCityTimeData" class="city-img-section">
+    <section v-if="cityTimeData" class="city-img-section">
       <div class="city-img-left-side">
-        <h2 v-if="exampleCityTimeData"><span>{{ exampleCityTimeData[0].nombreCiudad }}</span></h2>
-        <p v-if="exampleCityTimeData">This is an image of the beautiful city {{ exampleCityTimeData[0].nombreCiudad }}</p>
+        <h2 v-if="cityTimeData"><span>{{ cityTimeData.nombreCiudad }}</span></h2>
+        <p v-if="cityTimeData">This is an image of the beautiful city {{ cityTimeData.nombreCiudad }}</p>
       </div>
-      <div class="city-img-right-side">
-        <img href="exampleCityTimeData[0].urlImagen" alt="city image">
+     <div class="city-img-right-side">
+        <img :src="cityTimeData.urlImagen" alt="city image">
       </div>
     </section>
     <section v-if="!isLogged" class="log-section">
@@ -287,7 +304,7 @@ export default {
       @include flex(row, center, center, 60px);
       border-top: 3px solid rgb(36, 49, 98);
       padding-top: 30px;
-      padding-bottom: 20px;
+      padding-bottom: 30px;
 
       .city-img-left-side {
         width: 30%;
@@ -331,4 +348,4 @@ export default {
       margin-bottom: 150px;
     }
   }
-</style>../../assets/exampleData/tiempoCiudades.js
+</style>
