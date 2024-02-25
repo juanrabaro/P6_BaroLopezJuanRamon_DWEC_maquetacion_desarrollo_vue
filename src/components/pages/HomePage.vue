@@ -1,6 +1,4 @@
 <script>
-// import SignInForm from '../childComponents/SignInForm.vue';
-// import LogInForm from '../childComponents/LogInForm.vue';
 import UserControlForm from '../childComponents/UserControlForm.vue';
 
 import { exampleDataCiudades } from '../../assets/exampleData/tiempoCiudades.js';
@@ -9,17 +7,15 @@ import { exampleDataUsuarios } from '../../assets/exampleData/usuarios.js';
 export default {
   name: 'HomePage',
   components: {
-    // SignInForm,
-    // LogInForm,
     UserControlForm,
 },
   data() {
     return {
-      // cityDataApi: null,
-      cityTimeData: null,
-      exampleUsersData: null,
       temperatureConclusionResult: String,
       searchInput: '',
+      cityData: null,
+      initialLoading: true,
+      citySearched: null,
     }
   },
   props: {
@@ -27,48 +23,43 @@ export default {
     user: Object,
   },
   methods: {
-    // prueba para obtener los datos de una API de prueba
     async fetchData() {
       try {
         const response = await fetch('http://localhost/api/ciudades');
         if (!response.ok) {
           throw new Error('Error al obtener los datos');
         }
-        const data = await response.json();
-        // this.cityDataApi = data.data;
-        return data.data
-        // console.log(this.cityDataApi);
+        
+        this.initialLoading = false;
+
+        const responseData = await response.json();
+        this.cityData = responseData.data;
+
       } catch (error) {
         console.error('Error:', error);
       }
     },
-    // determina según la temperatura el estado del tiempo
     temperatureConclusion() {
-      if (this.cityTimeData.tiempoCiudad.temperaturaMin > 20) {
+      if (this.citySearched.tiempoCiudad.temperaturaMin > 20) {
         this.temperatureConclusionResult = "Sunny";
-      } else if (this.cityTimeData.tiempoCiudad.temperaturaMin > 15) {
+      } else if (this.citySearched.tiempoCiudad.temperaturaMin > 15) {
         this.temperatureConclusionResult = "Cloudy";
       } else {
         this.temperatureConclusionResult = "Cold";
       }
     },
-    // se ejecuta cuando se le da a buscar
-    async search() {
-      const cityDataApi = await this.fetchData();
-      const cityList = cityDataApi.map((city) => {
+    search() {
+      const cityNameList = this.cityData.map((city) => {
         return city.nombreCiudad;
       });
-      if ( cityList.includes(this.searchInput) ) {
-        const citySearched = cityList.indexOf(this.searchInput)
-        this.cityTimeData = cityDataApi[citySearched];
-        this.exampleUsersData = exampleDataUsuarios.data;
-        console.log(this.cityTimeData.tiempoCiudad.temperaturaMin);
+      if ( cityNameList.includes(this.searchInput) ) {
+        const citySearchedIndex = cityNameList.indexOf(this.searchInput)
+        this.citySearched = this.cityData[citySearchedIndex];
         this.temperatureConclusion();
       }
     },
   },
   created() {
-    // para cuando la API esté lista
     this.fetchData();
   },
 }
@@ -79,9 +70,11 @@ export default {
     <section class="search-section">
       <h1>Welcome to WeatherHub</h1>
       <p>Get detailed weather and time information</p>
-      <input v-model="searchInput" type="text" placeholder="Search for a city">
-      <button v-on:click="search">Search</button>
-      <p v-if="cityTimeData" class="result">Resultados para <span>{{ cityTimeData.nombreCiudad }}</span></p>
+      <input v-model="searchInput" v-if="!initialLoading" type="text" placeholder="Search for a city">
+      <button v-on:click="search" v-if="!initialLoading" >Search</button>
+      <!-- <p v-if="initialLoading">Loading...</p> -->
+      <div v-if="initialLoading" class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+      <p v-if="citySearched" class="result">Resultados para <span>{{ citySearched.nombreCiudad }}</span></p>
     </section>
     
     <section class="weather-details">
@@ -94,33 +87,33 @@ export default {
         <div class="temperature">
           <h3>Temperature</h3>
           <p>Current temperature in ºC</p>
-          <p v-if="cityTimeData"><strong>Max: {{ cityTimeData.tiempoCiudad.temperaturaMax }}ºC - Min: {{ cityTimeData.tiempoCiudad.temperaturaMin }}ºC</strong></p>
-          <p v-if="cityTimeData" class="conclusion">{{ temperatureConclusionResult }}</p>
+          <p v-if="citySearched"><strong>Max: {{ citySearched.tiempoCiudad.temperaturaMax }}ºC - Min: {{ citySearched.tiempoCiudad.temperaturaMin }}ºC</strong></p>
+          <p v-if="citySearched" class="conclusion">{{ temperatureConclusionResult }}</p>
         </div>
         <div class="humidity">
           <h3>Humidity</h3>
           <p>Current humidity level</p>
-          <p v-if="cityTimeData"><strong>{{ cityTimeData.tiempoCiudad.humedad }}%</strong></p>
+          <p v-if="citySearched"><strong>{{ citySearched.tiempoCiudad.humedad }}%</strong></p>
         </div>
         <div class="wind">
           <h3>Wind Speed</h3>
           <p>Current wind speed in km/h</p>
-          <p v-if="cityTimeData"><strong>{{ cityTimeData.tiempoCiudad.viento }}km/h</strong></p>
+          <p v-if="citySearched"><strong>{{ citySearched.tiempoCiudad.viento }}km/h</strong></p>
         </div>
         <div class="rain">
           <h3>Rain</h3>
           <p>Probabilities of rain</p>
-          <p v-if="cityTimeData"><strong>{{ cityTimeData.tiempoCiudad.precipitacion }}%</strong></p>
+          <p v-if="citySearched"><strong>{{ citySearched.tiempoCiudad.precipitacion }}%</strong></p>
         </div>
       </div>
     </section>
-    <section v-if="cityTimeData" class="city-img-section">
+    <section v-if="citySearched" class="city-img-section">
       <div class="city-img-left-side">
-        <h2 v-if="cityTimeData"><span>{{ cityTimeData.nombreCiudad }}</span></h2>
-        <p v-if="cityTimeData">This is an image of the beautiful city {{ cityTimeData.nombreCiudad }}</p>
+        <h2 v-if="citySearched"><span>{{ citySearched.nombreCiudad }}</span></h2>
+        <p v-if="citySearched">This is an image of the beautiful city {{ citySearched.nombreCiudad }}</p>
       </div>
      <div class="city-img-right-side">
-        <img :src="cityTimeData.urlImagen" alt="city image">
+        <img :src="citySearched.urlImagen" alt="city image">
       </div>
     </section>
     <section v-if="!isLogged" class="log-section">
@@ -174,6 +167,64 @@ export default {
       button:hover {
         background-color: rgb(5, 20, 88);
       }
+
+      .lds-ellipsis {
+        display: inline-block;
+        position: relative;
+        width: 80px;
+        height: 80px;
+      }
+      .lds-ellipsis div {
+        position: absolute;
+        top: 33px;
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        background: #fff;
+        animation-timing-function: cubic-bezier(0, 1, 1, 0);
+      }
+      .lds-ellipsis div:nth-child(1) {
+        left: 8px;
+        animation: lds-ellipsis1 0.6s infinite;
+      }
+      .lds-ellipsis div:nth-child(2) {
+        left: 8px;
+        animation: lds-ellipsis2 0.6s infinite;
+      }
+      .lds-ellipsis div:nth-child(3) {
+        left: 32px;
+        animation: lds-ellipsis2 0.6s infinite;
+      }
+      .lds-ellipsis div:nth-child(4) {
+        left: 56px;
+        animation: lds-ellipsis3 0.6s infinite;
+      }
+      @keyframes lds-ellipsis1 {
+        0% {
+          transform: scale(0);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      @keyframes lds-ellipsis3 {
+        0% {
+          transform: scale(1);
+        }
+        100% {
+          transform: scale(0);
+        }
+      }
+      @keyframes lds-ellipsis2 {
+        0% {
+          transform: translate(0, 0);
+        }
+        100% {
+          transform: translate(24px, 0);
+        }
+      }
+      
+
       .result {
         font-size: 30px;
         margin-top: 25px;
