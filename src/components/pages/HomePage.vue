@@ -72,7 +72,6 @@ export default {
       <p>Get detailed weather and time information</p>
       <input v-model="searchInput" v-if="!initialLoading" type="text" placeholder="Search for a city">
       <button v-on:click="search" v-if="!initialLoading" >Search</button>
-      <!-- <p v-if="initialLoading">Loading...</p> -->
       <div v-if="initialLoading" class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
       <p v-if="citySearched" class="result">Resultados para <span>{{ citySearched.nombreCiudad }}</span></p>
     </section>
@@ -107,6 +106,7 @@ export default {
         </div>
       </div>
     </section>
+
     <section v-if="citySearched" class="city-img-section">
       <div class="city-img-left-side">
         <h2 v-if="citySearched"><span>{{ citySearched.nombreCiudad }}</span></h2>
@@ -116,6 +116,31 @@ export default {
         <img :src="citySearched.urlImagen" alt="city image">
       </div>
     </section>
+
+    <section class="more-information-section">
+      <div class="more-information-left">
+        <h1>More Information</h1>
+        <p>Get more information</p>
+      </div>
+      <div class="more-information-right">
+        <div class="population">
+          <h3>Population</h3>
+          <p>The current amount of people that life in the place</p>
+          <p v-if="citySearched"><strong>{{ citySearched.poblacion }}</strong> people life in <strong>{{ citySearched.nombreCiudad }}</strong></p>
+        </div>
+        <div class="climate">
+          <h3>Climate</h3>
+          <p>How it is his climate</p>
+          <p v-if="citySearched">The climate is <strong>{{ citySearched.clima }}</strong></p>
+        </div>
+        <div class="terrain">
+          <h3>Terrain</h3>
+          <p>The land it occupies</p>
+          <p v-if="citySearched"><strong>{{ citySearched.terreno }}km<sup>2</sup></strong></p>
+        </div>
+      </div>
+    </section>
+
     <section v-if="!isLogged" class="log-section">
       <UserControlForm/>
     </section>
@@ -332,6 +357,84 @@ export default {
           }
         }
         .rain {
+          border: 2px solid rgb(142, 142, 187);
+          border-radius: 8px;
+          padding: 15px 15px 15px 15px;
+          margin-bottom: 15px;
+
+          h3 {
+            font-size: 22px;
+            margin-top: 0;
+            margin-bottom: 12px;
+          }
+          p {
+            margin-top: 5px;
+            margin-bottom: 5px;
+
+          }
+        }
+      }
+    }
+
+    .more-information-section {
+      @include flex(row, center, center, 40px);
+      border-top: 3px solid rgb(36, 49, 98);
+      padding-top: 30px;
+      padding-bottom: 20px;
+
+      .more-information-left {
+        width: 30%;
+        padding: 15px 15px 15px 15px;
+        
+        h1 {
+          font-size: 35px;
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+        
+        p {
+          margin-top: 10px;
+          font-size: 20px;
+        }
+      }
+      .more-information-right {
+        width: 30%;
+        padding: 15px 15px 15px 15px;
+        
+        .population {
+          border: 2px solid rgb(142, 142, 187);
+          border-radius: 8px;
+          padding: 15px 15px 15px 15px;
+          margin-bottom: 15px;
+
+          h3 {
+            font-size: 22px;
+            margin-top: 0;
+            margin-bottom: 12px;
+          }
+          p {
+            margin-top: 5px;
+            margin-bottom: 5px;
+          }
+        }
+        .climate {
+          border: 2px solid rgb(142, 142, 187);
+          border-radius: 8px;
+          padding: 15px 15px 15px 15px;
+          margin-bottom: 15px;
+
+          h3 {
+            font-size: 22px;
+            margin-top: 0;
+            margin-bottom: 12px;
+          }
+          p {
+            margin-top: 5px;
+            margin-bottom: 5px;
+
+          }
+        }
+        .terrain {
           border: 2px solid rgb(142, 142, 187);
           border-radius: 8px;
           padding: 15px 15px 15px 15px;
