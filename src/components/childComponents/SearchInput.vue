@@ -1,6 +1,46 @@
 <script>
 export default {
   name: 'SearchInput',
+  data() {
+    return {
+      searchInput: '',
+      initialLoading: true,
+      cityData: null,
+      citySearched: null,
+    }
+  },
+  emits: ['searched'],
+  methods: {
+    async fetchData() {
+      try {
+        const response = await fetch('http://localhost/api/ciudades');
+        if (!response.ok) {
+          throw new Error('Error al obtener los datos');
+        }
+        
+        this.initialLoading = false;
+
+        const responseData = await response.json();
+        this.cityData = responseData.data;
+
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    },
+    search() {
+      const cityNameList = this.cityData.map((city) => {
+        return city.nombreCiudad;
+      });
+      if ( cityNameList.includes(this.searchInput) ) {
+        const citySearchedIndex = cityNameList.indexOf(this.searchInput)
+        this.citySearched = this.cityData[citySearchedIndex];
+        this.$emit('searched', this.citySearched);
+      }
+    }
+  },
+  created() {
+    this.fetchData();
+  },
 }
 </script>
 

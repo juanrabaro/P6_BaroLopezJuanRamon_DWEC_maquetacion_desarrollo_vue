@@ -14,9 +14,6 @@ export default {
   data() {
     return {
       temperatureConclusionResult: String,
-      searchInput: '',
-      cityData: null,
-      initialLoading: true,
       citySearched: null,
     }
   },
@@ -25,21 +22,9 @@ export default {
     user: Object,
   },
   methods: {
-    async fetchData() {
-      try {
-        const response = await fetch('http://localhost/api/ciudades');
-        if (!response.ok) {
-          throw new Error('Error al obtener los datos');
-        }
-        
-        this.initialLoading = false;
-
-        const responseData = await response.json();
-        this.cityData = responseData.data;
-
-      } catch (error) {
-        console.error('Error:', error);
-      }
+    handleSearched(citySearched) {
+      this.citySearched = citySearched;
+      this.temperatureConclusion();
     },
     temperatureConclusion() {
       if (this.citySearched.tiempoCiudad.temperaturaMin > 20) {
@@ -50,19 +35,6 @@ export default {
         this.temperatureConclusionResult = "Cold";
       }
     },
-    search() {
-      const cityNameList = this.cityData.map((city) => {
-        return city.nombreCiudad;
-      });
-      if ( cityNameList.includes(this.searchInput) ) {
-        const citySearchedIndex = cityNameList.indexOf(this.searchInput)
-        this.citySearched = this.cityData[citySearchedIndex];
-        this.temperatureConclusion();
-      }
-    },
-  },
-  created() {
-    this.fetchData();
   },
 }
 </script>
@@ -72,7 +44,7 @@ export default {
     <section class="search-section">
       <h1>Welcome to WeatherHub</h1>
       <p>Get detailed weather and time information</p>
-      <SearchInput />
+      <SearchInput @searched="handleSearched" />
       <p v-if="citySearched" class="result">You searched <span>{{ citySearched.nombreCiudad }}</span></p>
     </section>
     
