@@ -10,7 +10,7 @@ export default {
   components: {
     UserControlForm,
     SearchInput,
-},
+  },
   data() {
     return {
       temperatureConclusionResult: String,
