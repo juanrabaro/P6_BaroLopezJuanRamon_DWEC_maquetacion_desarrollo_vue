@@ -1,0 +1,113 @@
+<script>
+export default {
+  name: 'SearchInput',
+}
+</script>
+
+<template>
+  <input v-model="searchInput" v-if="!initialLoading" type="text" placeholder="Search for a city">
+  <button v-on:click="search" v-if="!initialLoading">Search</button>
+  <div v-if="initialLoading" class="lds-ellipsis">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</template>
+
+<style scoped lang="scss">
+@import '/src/assets/styles/main.scss';
+
+input {
+  padding: 7px 15px 7px 15px;
+  border-radius: 8px;
+  font-size: 19px;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border: 0;
+  width: 250px;
+}
+
+button {
+  background-color: rgb(42, 59, 130);
+  color: rgb(229, 242, 253);
+  padding: 8px 45px 8px 45px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 0;
+  cursor: pointer;
+  width: 150px;
+}
+
+button:hover {
+  background-color: rgb(5, 20, 88);
+}
+
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-ellipsis div {
+  position: absolute;
+  top: 33px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #fff;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.lds-ellipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(24px, 0);
+  }
+}
+</style>
