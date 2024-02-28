@@ -42,31 +42,12 @@ export default {
       }
       console.log(this.actualForm);
     },
-    login(user) {
-      const users = JSON.parse(window.localStorage.getItem('usersWeatherHub')) || []
-      const userExist = users.filter((userE) => {
-        if (userE.inputEmail === user.inputEmail && userE.inputPassword === user.inputPassword) {
-          return user
-        }
-      })
-      console.log(userExist);
-      if (!userExist.length) {
-        this.userNotExistMessage = "Ups... the user does not exist or the password is incorrect"
-        return
-      }
-
-      this.userNotExistMessage = ""
-      window.localStorage.setItem('userLoggedWeatherHub', JSON.stringify(true))
-      window.localStorage.setItem('userWeatherHub', JSON.stringify(userExist[0]))
-      this.$root.user = userExist[0]
-      this.$root.userLogged = true
-    },
     loginDB(user) {
       const data = {
         email: user.inputEmail,
         password: user.inputPassword,
       }
-      
+
       this.loadingSignInLogIn = true
 
       axios.post('http://localhost:80/api/login', data)
@@ -115,28 +96,6 @@ export default {
           this.loadingSignInLogIn = false
         })
 
-    },
-    sigin(user) {
-      const users = JSON.parse(window.localStorage.getItem('usersWeatherHub')) || []
-
-      const userExist = users.filter((userE) => {
-        if (userE.inputEmail === user.inputEmail) {
-          return user
-        }
-      })
-      if (userExist.length) {
-        this.userExistMessage = "Ups... the user already exist"
-        return
-      }
-
-      this.userExistMessage = ""
-      users.push(user)
-      window.localStorage.setItem('usersWeatherHub', JSON.stringify(users))
-      window.localStorage.setItem('userLoggedWeatherHub', JSON.stringify(true))
-      window.localStorage.setItem('userWeatherHub', JSON.stringify(user))
-
-      this.$root.user = user
-      this.$root.userLogged = true
     },
     // Valida si el formulario es para sign  in
     validateSigIn() {
@@ -252,10 +211,9 @@ export default {
           placeholder="Password" />
       </div>
     </div>
-    <!-- <button v-if="actualForm === 'sign-in'" v-bind:disabled="!allReady" @click="() => sigin(userData)">Sign In</button> -->
     <button v-if="actualForm === 'sign-in'" v-bind:disabled="!allReady" @click="() => signinDB(userData)">Sign In</button>
-    <!-- <button v-else-if="actualForm === 'log-in'" v-bind:disabled="!allReady" @click="() => login(userData)">Log In</button> -->
-    <button v-else-if="actualForm === 'log-in'" v-bind:disabled="!allReady" @click="() => loginDB(userData)">Log In</button>
+    <button v-else-if="actualForm === 'log-in'" v-bind:disabled="!allReady" @click="() => loginDB(userData)">Log
+      In</button>
     <div v-if="loadingSignInLogIn" class="lds-ellipsis">
       <div></div>
       <div></div>
@@ -267,8 +225,6 @@ export default {
         In</a></p>
     <p v-else-if="actualForm === 'log-in'" class="change-log-sign">You don't have an account? <a @click="changeForms">Sign
         In</a></p>
-    <!-- <p v-if="validationMessage.length > 1">{{ validationMessage }}</p>
-    <p v-if="userExistMessage.length">{{ userExistMessage }}</p> -->
   </form>
 </template>
 
