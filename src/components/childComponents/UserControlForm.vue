@@ -15,6 +15,7 @@ export default {
       userExistMessage: "",
       userNotExistMessage: "",
       actualForm: "sign-in",
+      loadingSignIn: false,
     }
   },
   methods: {
@@ -60,16 +61,31 @@ export default {
       this.$root.user = userExist[0]
       this.$root.userLogged = true
     },
-    signinDB(user) {
-      console.log(user.inputEmail);
-      console.log(user.inputUsername);
-      console.log(user.inputPassword);
+    loginDB(user) {
+      const data = {
+        email: user.inputEmail,
+        password: user.inputPassword,
+      }
 
+      axios.post('http://localhost:80/api/login', data)
+        .then((response) => {
+          console.log(response);
+          this.$root.user = data
+          this.$root.userLogged = true
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+
+    },
+    signinDB(user) {
       const data = {
         nombre_usuario: user.inputUsername,
         email: user.inputEmail,
         password: user.inputPassword,
       }
+
+      this.loadingSignIn = true
 
       axios.post('http://localhost:80/api/register', data)
         .then((response) => {
@@ -78,7 +94,13 @@ export default {
           this.$root.userLogged = true
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error.response.data.error);
+          if (error.response.data.error === "error, usuario ya registrado o hay otro error") {
+            this.userExistMessage = "Ups... the user already exist"
+          }
+        })
+        .finally(() => {
+          this.loadingSignIn = false
         })
 
     },
@@ -221,6 +243,12 @@ export default {
     <!-- <button v-if="actualForm === 'sign-in'" v-bind:disabled="!allReady" @click="() => sigin(userData)">Sign In</button> -->
     <button v-if="actualForm === 'sign-in'" v-bind:disabled="!allReady" @click="() => signinDB(userData)">Sign In</button>
     <button v-else-if="actualForm === 'log-in'" v-bind:disabled="!allReady" @click="() => login(userData)">Log In</button>
+    <div v-if="loadingSignIn" class="lds-ellipsis">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
 
     <p v-if="actualForm === 'sign-in'" class="change-log-sign">You already have an account? <a @click="changeForms">Log
         In</a></p>
@@ -315,6 +343,74 @@ form {
 
   button:disabled {
     background-color: rgb(95, 95, 137);
+  }
+
+
+  .lds-ellipsis {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+
+  .lds-ellipsis div {
+    position: absolute;
+    top: 33px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #fff;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  }
+
+  .lds-ellipsis div:nth-child(1) {
+    left: 8px;
+    animation: lds-ellipsis1 0.6s infinite;
+  }
+
+  .lds-ellipsis div:nth-child(2) {
+    left: 8px;
+    animation: lds-ellipsis2 0.6s infinite;
+  }
+
+  .lds-ellipsis div:nth-child(3) {
+    left: 32px;
+    animation: lds-ellipsis2 0.6s infinite;
+  }
+
+  .lds-ellipsis div:nth-child(4) {
+    left: 56px;
+    animation: lds-ellipsis3 0.6s infinite;
+  }
+
+  @keyframes lds-ellipsis1 {
+    0% {
+      transform: scale(0);
+    }
+
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes lds-ellipsis3 {
+    0% {
+      transform: scale(1);
+    }
+
+    100% {
+      transform: scale(0);
+    }
+  }
+
+  @keyframes lds-ellipsis2 {
+    0% {
+      transform: translate(0, 0);
+    }
+
+    100% {
+      transform: translate(24px, 0);
+    }
   }
 
   .change-log-sign {

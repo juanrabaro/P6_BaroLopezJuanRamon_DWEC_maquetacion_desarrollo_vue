@@ -14,6 +14,9 @@ export default {
     }
   },
   methods: {
+    validateUserLoggedDB() {
+      
+    },
     // Comprueba si el usuario está logueado al cargar la página
     validateUserLogged() {
       this.userLogged = JSON.parse(window.localStorage.getItem('userLoggedWeatherHub')) || false
@@ -25,7 +28,8 @@ export default {
     },
   },
   created() {
-    this.validateUserLogged()
+    // this.validateUserLogged()
+    this.validateUserLoggedDB()
   },
 }
 </script>
