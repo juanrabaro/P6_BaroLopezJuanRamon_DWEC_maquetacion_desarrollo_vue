@@ -9,8 +9,9 @@ export default {
     // Desloguea al usuario
     logout() {
       window.localStorage.removeItem('userLoggedWeatherHub')
-      window.localStorage.removeItem('userWeatherHub')
-      this.$root.user = { inputUsername: "" }
+      window.localStorage.removeItem('tokenUser')
+      // window.localStorage.removeItem('userWeatherHub')
+      // this.$root.user = { inputUsername: "" }
       this.$root.userLogged = false
     },
     // Redirige al usuario a la página de inicio y al formulario de login o signin

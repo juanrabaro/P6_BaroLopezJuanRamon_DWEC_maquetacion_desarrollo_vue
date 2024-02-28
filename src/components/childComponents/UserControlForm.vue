@@ -90,6 +90,9 @@ export default {
       axios.post('http://localhost:80/api/register', data)
         .then((response) => {
           console.log(response);
+          window.localStorage.setItem('tokenUser', JSON.stringify(response.data.token.original.token))
+          window.localStorage.setItem('userLoggedWeatherHub', JSON.stringify(true))
+          this.$root.token = response.data.token.original.token
           this.$root.user = data
           this.$root.userLogged = true
         })

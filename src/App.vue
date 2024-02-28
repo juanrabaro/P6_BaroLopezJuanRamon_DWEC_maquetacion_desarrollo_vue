@@ -11,11 +11,13 @@ export default {
       // los datos del usuario en cuestion
       userLogged: false,
       user: null,
+      token: null,
     }
   },
   methods: {
     validateUserLoggedDB() {
-      
+      this.userLogged = JSON.parse(window.localStorage.getItem('userLoggedWeatherHub')) || false
+      this.token = JSON.parse(window.localStorage.getItem('tokenUser')) || null
     },
     // Comprueba si el usuario está logueado al cargar la página
     validateUserLogged() {
