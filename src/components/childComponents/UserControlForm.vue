@@ -15,7 +15,7 @@ export default {
       userExistMessage: "",
       userNotExistMessage: "",
       actualForm: "sign-in",
-      loadingSignIn: false,
+      loadingSignInLogIn: false,
     }
   },
   methods: {
@@ -66,15 +66,24 @@ export default {
         email: user.inputEmail,
         password: user.inputPassword,
       }
+      
+      this.loadingSignInLogIn = true
 
       axios.post('http://localhost:80/api/login', data)
         .then((response) => {
           console.log(response);
+          window.localStorage.setItem('tokenUser', JSON.stringify(response.data.token))
+          window.localStorage.setItem('userLoggedWeatherHub', JSON.stringify(true))
+          this.$root.token = response.data.token
           this.$root.user = data
           this.$root.userLogged = true
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error.response.data.error);
+          this.userNotExistMessage = "Ups... the user does not exist or the password is incorrect"
+        })
+        .finally(() => {
+          this.loadingSignInLogIn = false
         })
 
     },
@@ -85,7 +94,7 @@ export default {
         password: user.inputPassword,
       }
 
-      this.loadingSignIn = true
+      this.loadingSignInLogIn = true
 
       axios.post('http://localhost:80/api/register', data)
         .then((response) => {
@@ -103,7 +112,7 @@ export default {
           }
         })
         .finally(() => {
-          this.loadingSignIn = false
+          this.loadingSignInLogIn = false
         })
 
     },
@@ -245,8 +254,9 @@ export default {
     </div>
     <!-- <button v-if="actualForm === 'sign-in'" v-bind:disabled="!allReady" @click="() => sigin(userData)">Sign In</button> -->
     <button v-if="actualForm === 'sign-in'" v-bind:disabled="!allReady" @click="() => signinDB(userData)">Sign In</button>
-    <button v-else-if="actualForm === 'log-in'" v-bind:disabled="!allReady" @click="() => login(userData)">Log In</button>
-    <div v-if="loadingSignIn" class="lds-ellipsis">
+    <!-- <button v-else-if="actualForm === 'log-in'" v-bind:disabled="!allReady" @click="() => login(userData)">Log In</button> -->
+    <button v-else-if="actualForm === 'log-in'" v-bind:disabled="!allReady" @click="() => loginDB(userData)">Log In</button>
+    <div v-if="loadingSignInLogIn" class="lds-ellipsis">
       <div></div>
       <div></div>
       <div></div>
