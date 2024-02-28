@@ -4,12 +4,28 @@ body {
   padding: 0;
   background-color: rgb(179, 198, 214);
   color: rgb(1, 14, 57);
-  
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Lato Black';
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    // font-family: 'Lato Black';
+    font-family: "Lato", sans-serif;
+    font-weight: 900;
+    font-style: normal;
   }
 
-  p, a, span, label, input, button {
-    font-family: 'Lato Regular';
+  p,
+  a,
+  span,
+  label,
+  input,
+  button {
+    // font-family: "Lato Regular";
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: normal;
   }
 }

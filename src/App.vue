@@ -10,7 +10,7 @@ export default {
       // variables globales para saber si el usuario está logueado y
       // los datos del usuario en cuestion
       userLogged: false,
-      user: {},
+      user: null,
     }
   },
   methods: {

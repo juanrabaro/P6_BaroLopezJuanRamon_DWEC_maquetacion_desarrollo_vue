@@ -14,6 +14,9 @@ export default {
     }
   },
   methods: {
+    signinDB(user) {
+      
+    },
     sigin(user) {
       const users = JSON.parse(window.localStorage.getItem('usersWeatherHub')) || []
 
