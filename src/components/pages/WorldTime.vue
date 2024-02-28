@@ -1,5 +1,6 @@
 <script>
 import SearchInput from '../childComponents/SearchInput.vue';
+import moment from 'moment'
 
 export default {
   name: 'WorldTime',
@@ -8,6 +9,7 @@ export default {
     return {
       citySearched: null,
       showData: false,
+      time: moment().format('HH:mm:ss')
     }
   },
   methods: {
@@ -15,6 +17,13 @@ export default {
       this.citySearched = citySearched;
       this.showData = true;
     }
+  },
+  created() {
+    setInterval(() => {
+      if ( this.citySearched ) {
+        this.time = moment().add(this.citySearched.zonaHoraria.horaZona, 'hours').format('HH:mm:ss');
+      }
+    }, 1000);
   }
 }
 </script>
@@ -22,10 +31,10 @@ export default {
 <template>
   <main>
     <h1>World Time</h1>
-    <h3>Search the time in any city!</h3>
+    <h3>Search the current time in any city!</h3>
     <SearchInput @searched="handleSearch" />
-    <div v-if="citySearched">
-      <p>{{ citySearched.zonaHoraria.horaZona }}</p>
+    <div class="current-time" v-if="citySearched">
+      <p>In <span>{{ citySearched.nombreCiudad }}</span> it is {{ time }}</p>
     </div>
   </main>
 </template>
@@ -45,6 +54,16 @@ main {
     text-align: center;
     font-family: 'Lato regular';
     margin-top: 10px;
+  }
+
+  .current-time {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 30px;
+
+    span {
+      color: blue;
+    }
   }
 }
 </style>
