@@ -37,10 +37,12 @@ export default {
 
 <template>
   <header>
-    <div class="logo-container">
-      <img src="/cloud_3220.png" alt="IMGLOGO">
-      <h2>WeatherHub</h2>
-    </div>
+    <a href="/">
+      <div class="logo-container">
+        <img src="/cloud_3220.png" alt="IMGLOGO">
+        <h2>WeatherHub</h2>
+      </div>
+    </a>
 
     <nav>
       <router-link to="/">Home</router-link>
