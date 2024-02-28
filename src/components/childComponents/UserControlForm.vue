@@ -1,4 +1,6 @@
 <script>
+import axios from 'axios'
+
 export default {
   name: 'UserControlForm',
   data() {
@@ -57,6 +59,28 @@ export default {
       window.localStorage.setItem('userWeatherHub', JSON.stringify(userExist[0]))
       this.$root.user = userExist[0]
       this.$root.userLogged = true
+    },
+    signinDB(user) {
+      console.log(user.inputEmail);
+      console.log(user.inputUsername);
+      console.log(user.inputPassword);
+
+      const data = {
+        nombre_usuario: user.inputUsername,
+        email: user.inputEmail,
+        password: user.inputPassword,
+      }
+
+      axios.post('http://localhost:80/api/register', data)
+        .then((response) => {
+          console.log(response);
+          this.$root.user = data
+          this.$root.userLogged = true
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+
     },
     sigin(user) {
       const users = JSON.parse(window.localStorage.getItem('usersWeatherHub')) || []
@@ -194,7 +218,8 @@ export default {
           placeholder="Password" />
       </div>
     </div>
-    <button v-if="actualForm === 'sign-in'" v-bind:disabled="!allReady" @click="() => sigin(userData)">Sign In</button>
+    <!-- <button v-if="actualForm === 'sign-in'" v-bind:disabled="!allReady" @click="() => sigin(userData)">Sign In</button> -->
+    <button v-if="actualForm === 'sign-in'" v-bind:disabled="!allReady" @click="() => signinDB(userData)">Sign In</button>
     <button v-else-if="actualForm === 'log-in'" v-bind:disabled="!allReady" @click="() => login(userData)">Log In</button>
 
     <p v-if="actualForm === 'sign-in'" class="change-log-sign">You already have an account? <a @click="changeForms">Log
