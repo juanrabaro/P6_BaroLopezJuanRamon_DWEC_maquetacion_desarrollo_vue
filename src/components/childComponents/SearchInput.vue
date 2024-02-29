@@ -29,9 +29,12 @@ export default {
     },
     search() {
       const cityNameList = this.cityData.map((city) => {
-        return city.nombreCiudad;
+        return city.nombreCiudad.toLowerCase().trim();
       });
-      if (cityNameList.includes(this.searchInput)) {
+
+      const formatedInput = this.searchInput.toLowerCase().trim();
+
+      if ( cityNameList.includes(formatedInput) ) {
         const citySearchedIndex = cityNameList.indexOf(this.searchInput)
         this.citySearched = this.cityData[citySearchedIndex];
         this.$emit('searched', this.citySearched);
