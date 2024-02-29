@@ -18,6 +18,7 @@ export default {
       temperatureConclusionResult: String,
       citySearched: null,
       idUserLogged: null,
+      citySaved: false,
     }
   },
   props: {
@@ -26,6 +27,7 @@ export default {
   },
   methods: {
     handleSearched(citySearched) {
+      this.citySaved = false;
       this.citySearched = citySearched;
       this.temperatureConclusion();
 
@@ -34,32 +36,36 @@ export default {
           Authorization: `Bearer ${this.$root.token}`,
         },
       })
-      .then((response) => {
-        this.idUserLogged = response.data.id
-        console.log(response.data.id);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        axios.post('http://localhost:80/api/guardar-ciudad', {
+        .then((response) => {
+          this.idUserLogged = response.data.id
+          console.log(response.data.id);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          axios.post('http://localhost:80/api/guardar-ciudad', {
             ciudad_id: this.citySearched.id,
             usuario_id: this.idUserLogged,
           }, {
-          headers: {
-            Authorization: `Bearer ${this.$root.token}`,
-          }
-        })
-          .then((response) => {
-            console.log(response);
+            headers: {
+              Authorization: `Bearer ${this.$root.token}`,
+            }
           })
-          .catch((error) => {
-            console.log(this.citySearched.id);
-            console.log(this.idUserLogged);
-            console.log(this.$root.token);
-            console.error('Error:', error);
-          });
-      })
+            .then((response) => {
+              console.log(response);
+            })
+            .catch((error) => {
+              console.log(this.citySearched.id);
+              console.log(this.idUserLogged);
+              console.log(this.$root.token);
+              console.error('Error:', error);
+            })
+            .finally(() => {
+              console.log("ciudad guardada");
+              this.citySaved = true;
+            });
+        })
 
     },
     temperatureConclusion() {
@@ -154,6 +160,10 @@ export default {
     <section v-if="!isLogged" class="log-section">
       <UserControlForm />
     </section>
+
+    <transition name="disappear">
+      <p v-if="citySaved" class="city-saved">City saved!</p>
+    </transition>
   </main>
 </template>
 
@@ -161,6 +171,17 @@ export default {
 @import '/src/assets/styles/main.scss';
 
 main {
+  .city-saved {
+    position: fixed;
+    bottom: 70px;
+    right: 0;
+    background-color: rgb(8, 181, 80);
+    color: rgb(229, 242, 253);
+    padding: 15px 35px 15px 35px;
+    margin-bottom: 0;
+    font-size: 20px;
+  }
+
 
   .search-section {
     @include flex(column, center, center);

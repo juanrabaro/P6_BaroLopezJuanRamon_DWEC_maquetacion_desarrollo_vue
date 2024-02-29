@@ -29,14 +29,15 @@ export default {
     },
     search() {
       const cityNameList = this.cityData.map((city) => {
-        return city.nombreCiudad.toLowerCase().trim();
+        return city.nombreCiudad.toLowerCase().trim().replace(/\s+/g, '');
       });
 
-      const formatedInput = this.searchInput.toLowerCase().trim();
+      const formatedInput = this.searchInput.toLowerCase().trim().replace(/\s+/g, '');
 
       if ( cityNameList.includes(formatedInput) ) {
-        const citySearchedIndex = cityNameList.indexOf(this.searchInput)
+        const citySearchedIndex = cityNameList.indexOf(formatedInput)
         this.citySearched = this.cityData[citySearchedIndex];
+         
         this.$emit('searched', this.citySearched);
       }
     }
