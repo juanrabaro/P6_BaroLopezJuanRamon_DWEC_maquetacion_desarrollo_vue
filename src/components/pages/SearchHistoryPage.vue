@@ -28,42 +28,46 @@ export default {
           Authorization: `Bearer ${this.$root.token}`,
         },
       })
-      .then((response) => {
-        this.idUserLogged = response.data.id
-        console.log(response.data.id);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        axios.get(`http://localhost:80/api/usuarios/${this.idUserLogged}`, {
-          headers: {
-            Authorization: `Bearer ${this.$root.token}`,
-          },
-        })
         .then((response) => {
-          this.userData = response.data.data
+          this.idUserLogged = response.data.id
+          console.log(response.data.id);
         })
         .catch((error) => {
           console.log(error);
         })
         .finally(() => {
-          this.loading = false;
-          console.log(this.userData);
-          this.getCities()
+          axios.get(`http://localhost:80/api/usuarios/${this.idUserLogged}`, {
+            headers: {
+              Authorization: `Bearer ${this.$root.token}`,
+            },
+          })
+            .then((response) => {
+              this.userData = response.data.data
+            })
+            .catch((error) => {
+              console.log(error);
+            })
+            .finally(() => {
+              console.log(this.userData);
+              this.getCities()
+            })
         })
-      })
     },
-    getCities() {
-      this.userData.ciudadesGuardadas.forEach(city => {
+    async getCities() {
+      var promises = this.userData.ciudadesGuardadas.map(city => {
         const cityId = city.idCiudad
-        
-        axios.get(`http://localhost:80/api/ciudades/${cityId}`)
-        .then((response) => {
-          this.cities.unshift(response.data.data)
-        })
+
+        return axios.get(`http://localhost:80/api/ciudades/${cityId}`)
+          .then((response) => {
+            this.cities.unshift(response.data.data)
+          })
       });
-      console.log(this.cities);
+
+      await Promise.all(promises)
+        .then(() => {
+          this.loading = false;
+          console.log(this.cities);
+        });
     },
   },
   created() {
@@ -101,7 +105,7 @@ main {
     font-size: 40px;
     text-align: center;
   }
-  
+
   h3 {
     text-align: center;
     margin-top: 10px;
@@ -114,14 +118,14 @@ main {
     justify-content: center;
     margin-top: 40px;
   }
-  
+
   .lds-ellipsis {
     display: inline-block;
     position: relative;
     width: 80px;
     height: 80px;
   }
-  
+
   .lds-ellipsis div {
     position: absolute;
     top: 33px;
@@ -131,52 +135,52 @@ main {
     background: #fff;
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
   }
-  
+
   .lds-ellipsis div:nth-child(1) {
     left: 8px;
     animation: lds-ellipsis1 0.6s infinite;
   }
-  
+
   .lds-ellipsis div:nth-child(2) {
     left: 8px;
     animation: lds-ellipsis2 0.6s infinite;
   }
-  
+
   .lds-ellipsis div:nth-child(3) {
     left: 32px;
     animation: lds-ellipsis2 0.6s infinite;
   }
-  
+
   .lds-ellipsis div:nth-child(4) {
     left: 56px;
     animation: lds-ellipsis3 0.6s infinite;
   }
-  
+
   @keyframes lds-ellipsis1 {
     0% {
       transform: scale(0);
     }
-  
+
     100% {
       transform: scale(1);
     }
   }
-  
+
   @keyframes lds-ellipsis3 {
     0% {
       transform: scale(1);
     }
-  
+
     100% {
       transform: scale(0);
     }
   }
-  
+
   @keyframes lds-ellipsis2 {
     0% {
       transform: translate(0, 0);
     }
-  
+
     100% {
       transform: translate(24px, 0);
     }
