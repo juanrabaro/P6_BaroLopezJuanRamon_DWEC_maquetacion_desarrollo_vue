@@ -99,7 +99,7 @@ export default {
       <div class="weather-details-left">
         <h1>Weather Details</h1>
         <p>Get detailed weather information for any selected city</p>
-        <button @click="() => this.$router.push('/compare-weathers')">Compare Locations</button>
+        <button class="button-compare-locations" @click="() => this.$router.push('/compare-weathers')">Compare Locations</button>
       </div>
       <div class="weather-details-right">
         <div class="temperature">
@@ -127,7 +127,7 @@ export default {
       </div>
     </section>
 
-    <button v-if="enableMoreInfo" @click="moreInfo" class="more-info">more info ⬇</button>
+    <button v-if="enableMoreInfo" @click="moreInfo" class="more-info">⬇ more info ⬇</button>
 
     <section v-if="citySearched" class="city-img-section" id="cityImgSection">
       <div class="city-img-left-side">
@@ -241,11 +241,11 @@ main {
         font-size: 20px;
       }
 
-      button {
+      .button-compare-locations {
         background-color: rgb(42, 59, 130);
         color: rgb(229, 242, 253);
         padding: 10px 15px 10px 15px;
-        font-size: 16px;
+        font-size: 18px;
         border-radius: 8px;
         border: 0;
         cursor: pointer;
@@ -262,7 +262,9 @@ main {
       padding: 15px 15px 15px 15px;
 
       .temperature {
-        border: 2px solid rgb(142, 142, 187);
+        border: 2px solid inherit;
+        background-color: rgb(122, 169, 208);
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
         border-radius: 8px;
         padding: 15px 15px 15px 15px;
         margin-bottom: 15px;
@@ -287,7 +289,9 @@ main {
       }
 
       .humidity {
-        border: 2px solid rgb(142, 142, 187);
+        border: 2px solid inherit;
+        background-color: rgb(122, 169, 208);
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
         border-radius: 8px;
         padding: 15px 15px 15px 15px;
         margin-bottom: 15px;
@@ -306,7 +310,9 @@ main {
       }
 
       .wind {
-        border: 2px solid rgb(142, 142, 187);
+        border: 2px solid inherit;
+        background-color: rgb(122, 169, 208);
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
         border-radius: 8px;
         padding: 15px 15px 15px 15px;
         margin-bottom: 15px;
@@ -325,7 +331,9 @@ main {
       }
 
       .rain {
-        border: 2px solid rgb(142, 142, 187);
+        border: 2px solid inherit;
+        background-color: rgb(122, 169, 208);
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
         border-radius: 8px;
         padding: 15px 15px 15px 15px;
         margin-bottom: 15px;
@@ -372,7 +380,9 @@ main {
       padding: 15px 15px 15px 15px;
 
       .population {
-        border: 2px solid rgb(142, 142, 187);
+        border: 2px solid inherit;
+        background-color: rgb(122, 169, 208);
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
         border-radius: 8px;
         padding: 15px 15px 15px 15px;
         margin-bottom: 15px;
@@ -390,7 +400,9 @@ main {
       }
 
       .climate {
-        border: 2px solid rgb(142, 142, 187);
+        border: 2px solid inherit;
+        background-color: rgb(122, 169, 208);
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
         border-radius: 8px;
         padding: 15px 15px 15px 15px;
         margin-bottom: 15px;
@@ -409,7 +421,9 @@ main {
       }
 
       .terrain {
-        border: 2px solid rgb(142, 142, 187);
+        border: 2px solid inherit;
+        background-color: rgb(122, 169, 208);
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
         border-radius: 8px;
         padding: 15px 15px 15px 15px;
         margin-bottom: 15px;
@@ -431,7 +445,7 @@ main {
 
   .more-info {
     text-align: center;
-    background-color: royalblue;
+    background-color: rgb(49, 68, 134);
     margin: 0;
     border: 0;
     border-top: 3px solid rgb(36, 49, 98);
@@ -460,7 +474,7 @@ main {
 
         span {
           font-family: 'Lato Black';
-          color: rgb(8, 97, 181);
+          color: rgb(230, 242, 253);
         }
       }
 
@@ -479,6 +493,7 @@ main {
         width: 100%;
         height: 100%;
         border-radius: 8px;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
       }
     }
   }
@@ -491,4 +506,11 @@ main {
     padding-top: 70px;
     margin-bottom: 150px;
   }
-}</style>
+}
+
+@media (max-width: 650px) {
+  main .weather-details .weather-details-left .button-compare-locations {
+    width: 100px;
+  }
+}
+</style>

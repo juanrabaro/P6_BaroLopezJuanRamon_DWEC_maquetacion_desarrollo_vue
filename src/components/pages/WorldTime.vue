@@ -20,7 +20,7 @@ export default {
   },
   created() {
     setInterval(() => {
-      if ( this.citySearched ) {
+      if (this.citySearched) {
         this.time = moment().add(this.citySearched.zonaHoraria.horaZona, 'hours').format('HH:mm:ss');
       }
     }, 1000);
@@ -34,7 +34,8 @@ export default {
     <h3>Search the current time in any city!</h3>
     <SearchInput @searched="handleSearch" />
     <div class="current-time" v-if="citySearched">
-      <p>In <span>{{ citySearched.nombreCiudad }}</span> it is {{ time }}</p>
+      <p class="city-name">In <span>{{ citySearched.nombreCiudad }}</span> it is</p>
+      <p class="time"><strong>{{ time }}s</strong></p>
     </div>
   </main>
 </template>
@@ -44,9 +45,9 @@ export default {
 
 main {
   h1 {
-    margin-top: 50px;
+    margin-top: 70px;
     margin-bottom: 0;
-    font-size: 40px;
+    font-size: 47px;
     text-align: center;
   }
 
@@ -62,6 +63,22 @@ main {
 
     span {
       color: blue;
+    }
+
+    .city-name {
+      margin: 0;
+      margin-bottom: 8px;
+    }
+
+    .time {
+      display: block;
+      margin: 0 auto;
+      border: 2px solid inherit;
+      border-radius: 8px;
+      background-color: rgb(122, 169, 208);
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+      padding: 20px;
+      width: fit-content;
     }
   }
 }

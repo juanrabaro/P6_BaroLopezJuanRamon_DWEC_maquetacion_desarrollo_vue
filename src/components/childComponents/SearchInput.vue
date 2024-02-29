@@ -79,17 +79,19 @@ export default {
     margin-bottom: 10px;
     border: 0;
     width: 250px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   }
 
   button {
     background-color: rgb(42, 59, 130);
     color: rgb(229, 242, 253);
-    padding: 8px 45px 8px 45px;
-    font-size: 16px;
+    padding: 8px 50px 8px 50px;
+    font-size: 18px;
     border-radius: 8px;
     border: 0;
     cursor: pointer;
     width: 150px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   }
 
   button:hover {

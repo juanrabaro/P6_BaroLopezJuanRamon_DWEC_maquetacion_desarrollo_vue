@@ -236,10 +236,10 @@ export default {
 
 form {
   @include flex(column, center, center, 10px);
-  width: 24%;
+  width: 300px;
 
   h2 {
-    font-size: 33px;
+    font-size: 37px;
     margin: 0;
     padding-bottom: 20px;
   }
@@ -249,6 +249,7 @@ form {
     border: 3px solid rgb(42, 59, 130);
     border-radius: 7px;
     width: 100%;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 
     .label-container {
       @include flex(row, center, center);
@@ -292,6 +293,7 @@ form {
   }
 
   button {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     background-color: rgb(42, 59, 130);
     padding: 10px 40px;
     margin-top: 7px;
@@ -393,12 +395,12 @@ form {
 
     a {
       text-decoration: none;
-      color: rgb(42, 59, 130);
+      color: rgb(227, 232, 249);
       cursor: pointer;
     }
 
     a:hover {
-      color: rgb(95, 35, 9);
+      color: rgb(4, 35, 50);
     }
   }
 }

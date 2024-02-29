@@ -53,13 +53,15 @@ export default {
 </template>
 
 <style scoped lang="scss">
+@import '/src/assets/styles/main.scss';
+
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 15vh;
-  padding: 0 25px 0 25px;
-  font-size: 18px;
+  height: 18vh;
+  padding: 0 5% 0 5%;
+  font-size: 19px;
 
   a {
     text-decoration: none;
@@ -68,11 +70,13 @@ header {
   }
 
   .router-link-exact-active {
-    color: rgb(56, 87, 148);
+    //color: rgb(201, 226, 255);
+    color: rgb(220, 238, 253);
   }
-
+  
   a:hover {
-    color: rgb(56, 87, 148);
+    color: rgb(220, 238, 253);
+    //color: rgb(56, 87, 148);
   }
 
   .logo-container {
@@ -91,7 +95,7 @@ header {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 17px;
+    gap: 19px;
 
     .log-in-button {
       padding: 5px 10px;
@@ -100,11 +104,18 @@ header {
       color: white;
       border: none;
       cursor: pointer;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     }
 
     .log-in-button:hover {
       background-color: rgb(5, 20, 88);
     }
+  }
+}
+
+@media (max-width: 1050px) {
+  header {
+    flex-direction: column;
   }
 }
 </style>

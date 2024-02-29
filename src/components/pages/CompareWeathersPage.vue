@@ -34,6 +34,7 @@ export default {
 <template>
   <main>
     <h1>Compare Weathers</h1>
+    <h3>Search two cities to compare their time</h3>
     <section class="search-inputs-container">
       <SearchInput v-show="!showCity1" @searched="city => searchHandle(city, 'input1')" />
       <div v-show="showCity1">
@@ -44,7 +45,7 @@ export default {
           <p>{{ citySearched1.tiempoCiudad.viento }}</p>
           <p>{{ citySearched1.tiempoCiudad.precipitacion }}</p>
         </div>
-        <button @click="revertInputs('input1')">🔄</button>
+        <button @click="revertInputs('input1')">Pick another city</button>
       </div>
       <SearchInput v-show="!showCity2" @searched="city => searchHandle(city, 'input2')" />
       <div v-show="showCity2">
@@ -55,7 +56,7 @@ export default {
           <p>{{ citySearched2.tiempoCiudad.viento }}</p>
           <p>{{ citySearched2.tiempoCiudad.precipitacion }}</p>
         </div>
-        <button @click="revertInputs('input2')">🔄</button>
+        <button @click="revertInputs('input2')">Pick another city</button>
       </div>
     </section>
   </main>
@@ -69,12 +70,18 @@ main {
     margin: 0;
     margin-top: 80px;
     text-align: center;
-    font-size: 40px;
+    font-size: 43px;
+  }
+  h3 {
+    text-align: center;
+    margin: 0;
+    margin-top: 10px;
+    font-size: 20px;
   }
   
   .search-inputs-container {
     @include flex(row, space-evenly, center);
-    padding-top: 100px;
+    padding-top: 70px;
     
     div {
       @include flex(column, center, center);
