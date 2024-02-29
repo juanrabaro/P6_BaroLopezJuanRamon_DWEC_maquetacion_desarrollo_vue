@@ -4,9 +4,6 @@ import axios from 'axios';
 import UserControlForm from '../childComponents/UserControlForm.vue';
 import SearchInput from '../childComponents/SearchInput.vue';
 
-import { exampleDataCiudades } from '../../assets/exampleData/tiempoCiudades.js';
-import { exampleDataUsuarios } from '../../assets/exampleData/usuarios.js';
-
 export default {
   name: 'HomePage',
   components: {
