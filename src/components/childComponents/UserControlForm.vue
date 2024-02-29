@@ -1,5 +1,7 @@
 <script>
 import axios from 'axios'
+import { useLoggedStore } from "../stores/loggedStore"
+import { mapState, mapActions } from "pinia"
 
 export default {
   name: 'UserControlForm',
@@ -16,9 +18,16 @@ export default {
       userNotExistMessage: "",
       actualForm: "sign-in",
       loadingSignInLogIn: false,
+      token: null,
     }
   },
+  computed: {
+    ...mapState(useLoggedStore, ["userLogged"]),
+  },
   methods: {
+    // Importa las acciones de useLoggedStore
+    ...mapActions(useLoggedStore, ["logInStore", "logOutStore"]),
+
     // Vacía las variables de validación del formulario
     cleanVariables() {
       this.userData = {
@@ -55,9 +64,10 @@ export default {
           console.log(response);
           window.localStorage.setItem('tokenUser', JSON.stringify(response.data.token))
           window.localStorage.setItem('userLoggedWeatherHub', JSON.stringify(true))
-          this.$root.token = response.data.token
-          this.$root.user = data
-          this.$root.userLogged = true
+          this.token = response.data.token
+          // this.$root.token = response.data.token
+          // this.$root.user = data
+          // this.$root.userLogged = true
         })
         .catch((error) => {
           console.log(error.response.data.error);
@@ -65,6 +75,7 @@ export default {
         })
         .finally(() => {
           this.loadingSignInLogIn = false
+          this.logInStore(this.token)
           window.scrollTo({ top: 0, behavior: 'smooth' });
         })
 
