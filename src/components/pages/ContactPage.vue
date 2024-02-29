@@ -22,7 +22,7 @@ export default {
       this.message = ""
       this.enableButton = false;
     },
-    validateInputs(label, value) {
+    validateInputs() {
       if (!this.emailValidation) {
         this.errorEmail = 'Email is not valid!!';
         this.allReady = false;
@@ -78,7 +78,6 @@ export default {
         <textarea v-model="message" v-on:input="validateInputs('message', message)" placeholder="Message"></textarea>
         <p v-if="errorMessage !=='' ">{{ errorMessage }}</p>
       </div>
-      <!-- <button type="submit" v-bind:disabled="!allReady">Send</button> -->
       <button type="submit" v-bind:disabled="!enableButton">Send</button>
       <p v-if="sendedMessage">Message sended!!</p>
     </form>

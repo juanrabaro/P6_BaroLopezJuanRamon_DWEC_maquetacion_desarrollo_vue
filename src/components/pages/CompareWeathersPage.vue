@@ -19,11 +19,9 @@ export default {
       if (inputId === 'input1') {
         this.citySearched1 = citySearched;
         this.showCity1 = true;
-        // console.log(this.citySearched1, inputId);
       } else if (inputId === 'input2') {
         this.citySearched2 = citySearched;
         this.showCity2 = true;
-        // console.log(this.citySearched2, inputId);
       }
     },
     revertInputs(inputId) {

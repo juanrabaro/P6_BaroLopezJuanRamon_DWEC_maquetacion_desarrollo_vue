@@ -1,11 +1,11 @@
 <script>
 import axios from 'axios';
 
+import { useLoggedStore } from "../stores/loggedStore"
+import { mapState } from "pinia"
+
 export default {
   name: 'SearchHistoryPage',
-  props: {
-    isLogged: Boolean,
-  },
   data() {
     return {
       loading: true,
@@ -14,18 +14,19 @@ export default {
       cities: [],
     };
   },
+  computed: {
+    ...mapState(useLoggedStore, ["userLogged"]),
+  },
   methods: {
     logged() {
-      if (!this.isLogged) {
+      if (!this.userLogged.logged) {
         this.$router.push('/');
       }
     },
     getUserData() {
-      console.log(this.$root.token);
-
       axios.get('http://localhost:80/api/usuarioData', {
         headers: {
-          Authorization: `Bearer ${this.$root.token}`,
+          Authorization: `Bearer ${this.userLogged.token}`,
         },
       })
         .then((response) => {
@@ -38,7 +39,7 @@ export default {
         .finally(() => {
           axios.get(`http://localhost:80/api/usuarios/${this.idUserLogged}`, {
             headers: {
-              Authorization: `Bearer ${this.$root.token}`,
+              Authorization: `Bearer ${this.userLogged.token}`,
             },
           })
             .then((response) => {
@@ -54,7 +55,7 @@ export default {
         })
     },
     async getCities() {
-      var promises = this.userData.ciudadesGuardadas.map(city => {
+      var promises = await this.userData.ciudadesGuardadas.map(city => {
         const cityId = city.idCiudad
 
         return axios.get(`http://localhost:80/api/ciudades/${cityId}`)

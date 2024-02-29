@@ -52,7 +52,6 @@ main {
 
   h3 {
     text-align: center;
-    //font-family: 'Lato regular';
     margin-top: 10px;
   }
 

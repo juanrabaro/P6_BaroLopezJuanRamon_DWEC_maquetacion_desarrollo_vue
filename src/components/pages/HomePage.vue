@@ -4,6 +4,9 @@ import axios from 'axios';
 import UserControlForm from '../childComponents/UserControlForm.vue';
 import SearchInput from '../childComponents/SearchInput.vue';
 
+import { useLoggedStore } from "../stores/loggedStore"
+import { mapState } from "pinia"
+
 export default {
   name: 'HomePage',
   components: {
@@ -19,9 +22,8 @@ export default {
       enableMoreInfo: false,
     }
   },
-  props: {
-    isLogged: Boolean,
-    user: Object,
+  computed: {
+    ...mapState(useLoggedStore, ["userLogged"]),
   },
   methods: {
     handleSearched(citySearched) {
@@ -33,7 +35,7 @@ export default {
 
       axios.get('http://localhost:80/api/usuarioData', {
         headers: {
-          Authorization: `Bearer ${this.$root.token}`,
+          Authorization: `Bearer ${this.userLogged.token}`,
         },
       })
         .then((response) => {
@@ -49,21 +51,18 @@ export default {
             usuario_id: this.idUserLogged,
           }, {
             headers: {
-              Authorization: `Bearer ${this.$root.token}`,
+              Authorization: `Bearer ${this.userLogged.token}`,
             }
           })
             .then((response) => {
               console.log(response);
             })
             .catch((error) => {
-              console.log(this.citySearched.id);
-              console.log(this.idUserLogged);
-              console.log(this.$root.token);
               console.error('Error:', error);
             })
             .finally(() => {
               console.log("ciudad guardada si user logged");
-              if (this.isLogged) {
+              if (this.userLogged.logged) {
                 this.citySaved = true;
               }
             });
@@ -165,7 +164,7 @@ export default {
       </div>
     </section>
 
-    <section v-if="!isLogged" class="log-section">
+    <section v-if="!userLogged.logged" class="log-section">
       <UserControlForm />
     </section>
 

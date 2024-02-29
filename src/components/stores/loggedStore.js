@@ -12,8 +12,8 @@ export const useLoggedStore = defineStore("loggedStore", {
 
   actions: {
     logInStore(token) {
-      this.logged = true
-      this.token = token
+      this.userLogged.logged = true
+      this.userLogged.token = token
     },
     logOutStore() {
       this.userLogged = {
@@ -27,7 +27,7 @@ export const useLoggedStore = defineStore("loggedStore", {
     enabled: true,
     strategies: [
       {
-        key: "loggedStore",
+        key: "auth",
         storage: window.localStorage,
       },
     ],
