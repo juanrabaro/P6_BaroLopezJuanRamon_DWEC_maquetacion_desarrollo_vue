@@ -4,10 +4,10 @@ ENTREGA CLIENTE
 -diseño header ✅
 -diseño home ✅
 -diseño world time ✅
--diseño compare weathers
--diseño searh history
--diseño contact us
--responsive servible
+-diseño compare weathers ✅
+-diseño searh history ✅
+-diseño contact us ✅
+-responsive servible ✅
 
 README del repositorio de vuestro proyecto es el primer punto de contacto con vuestro trabajo y debe proporcionar una visión clara y concisa de lo que es el proyecto y cómo interactuar con él. Aseguraos de incluir los siguientes elementos en vuestro README:
 -Título del Proyecto: Un título claro y descriptivo de vuestra aplicación.

@@ -67,6 +67,7 @@ header {
     text-decoration: none;
     color: black;
     word-spacing: -2.9px;
+    transition: all 0.2s;
   }
 
   .router-link-exact-active {
@@ -105,6 +106,7 @@ header {
       border: none;
       cursor: pointer;
       box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+      transition: all 0.3s;
     }
 
     .log-in-button:hover {

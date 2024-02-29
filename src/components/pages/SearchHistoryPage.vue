@@ -89,21 +89,27 @@ export default {
       <div></div>
     </div>
     <ul v-if="!loading" class="searches">
-      <li v-for="city in cities" :key="city.id">
-        <p>{{ city.nombreCiudad }}</p>
+      <li class="city-card" v-for="city in cities" :key="city.id">
+        <h2>{{ city.nombreCiudad }}</h2>
+        <p>Temp.Max <strong>{{ city.tiempoCiudad.temperaturaMax }}ºC</strong> - Temp.Min <strong>{{ city.tiempoCiudad.temperaturaMin }}ºC</strong></p>
+        <p>Humedity <strong>{{ city.tiempoCiudad.humedad }}%</strong></p>
+        <p>Wind Speed <strong>{{ city.tiempoCiudad.viento }}km/h</strong></p>
+        <p>Rain <strong>{{ city.tiempoCiudad.precipitacion }}%</strong></p>
       </li>
     </ul>
   </main>
 </template>
 
 <style scoped lang="scss">
+@import '/src/assets/styles/main.scss';
+
 main {
   text-align: center;
 
   h1 {
     margin-top: 50px;
     margin-bottom: 0;
-    font-size: 40px;
+    font-size: 45px;
     text-align: center;
   }
 
@@ -118,6 +124,24 @@ main {
     align-items: center;
     justify-content: center;
     margin-top: 40px;
+    padding-left: 0;
+    
+
+    .city-card {
+      @include flex(column, center, center);
+      margin-bottom: 40px;
+      height: 200px;
+      width: 300px;
+      border: 2px solid inherit;
+      background-color: rgb(122, 169, 208);
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+      border-radius: 8px;
+    
+      p {
+        margin: 0;
+        margin-bottom: 10px;
+      }
+    }
   }
 
   .lds-ellipsis {
