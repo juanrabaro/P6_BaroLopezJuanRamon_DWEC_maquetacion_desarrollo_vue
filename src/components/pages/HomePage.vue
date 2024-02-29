@@ -16,7 +16,7 @@ export default {
       citySearched: null,
       idUserLogged: null,
       citySaved: false,
-      enableUserExperience: false,
+      enableMoreInfo: false,
     }
   },
   props: {
@@ -27,7 +27,9 @@ export default {
     handleSearched(citySearched) {
       this.citySaved = false;
       this.citySearched = citySearched;
+      this.enableMoreInfo = true;
       this.temperatureConclusion();
+      document.getElementById("weather").scrollIntoView({ behavior: 'smooth' });
 
       axios.get('http://localhost:80/api/usuarioData', {
         headers: {
@@ -66,7 +68,6 @@ export default {
               }
             });
         })
-
     },
     temperatureConclusion() {
       if (this.citySearched.tiempoCiudad.temperaturaMin > 20) {
@@ -77,6 +78,11 @@ export default {
         this.temperatureConclusionResult = "Cold";
       }
     },
+    moreInfo() {
+      if ( this.enableMoreInfo ) {
+        document.getElementById("cityImgSection").scrollIntoView({ behavior: 'smooth' });
+      }
+    }
   },
 }
 </script>
@@ -90,11 +96,11 @@ export default {
       <p v-if="citySearched" class="result">You searched <span>{{ citySearched.nombreCiudad }}</span></p>
     </section>
 
-    <section class="weather-details">
+    <section class="weather-details" id="weather">
       <div class="weather-details-left">
         <h1>Weather Details</h1>
         <p>Get detailed weather information for any selected city</p>
-        <button>Compare Locations</button>
+        <button @click="() => this.$router.push('/compare-weathers')">Compare Locations</button>
       </div>
       <div class="weather-details-right">
         <div class="temperature">
@@ -122,7 +128,9 @@ export default {
       </div>
     </section>
 
-    <section v-if="citySearched" class="city-img-section">
+    <button v-if="enableMoreInfo" @click="moreInfo" class="more-info">more info ⬇</button>
+
+    <section v-if="citySearched" class="city-img-section" id="cityImgSection">
       <div class="city-img-left-side">
         <h2 v-if="citySearched"><span>{{ citySearched.nombreCiudad }}</span></h2>
         <p v-if="citySearched">This is an image of the beautiful city {{ citySearched.nombreCiudad }}</p>
@@ -420,6 +428,20 @@ main {
         }
       }
     }
+  }
+
+  .more-info {
+    text-align: center;
+    background-color: royalblue;
+    margin: 0;
+    border: 0;
+    border-top: 3px solid rgb(36, 49, 98);
+    width: 100%;
+    color: rgb(222, 233, 255);
+    font-size: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    cursor: pointer;
   }
 
   .city-img-section {
