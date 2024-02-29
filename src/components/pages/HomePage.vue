@@ -19,6 +19,7 @@ export default {
       citySearched: null,
       idUserLogged: null,
       citySaved: false,
+      enableUserExperience: false,
     }
   },
   props: {
@@ -62,8 +63,10 @@ export default {
               console.error('Error:', error);
             })
             .finally(() => {
-              console.log("ciudad guardada");
-              this.citySaved = true;
+              console.log("ciudad guardada si user logged");
+              if (this.isLogged) {
+                this.citySaved = true;
+              }
             });
         })
 
@@ -182,11 +185,10 @@ main {
     font-size: 20px;
   }
 
-
   .search-section {
     @include flex(column, center, center);
     width: 100%;
-    height: 65vh;
+    height: 63vh;
     margin-bottom: 40px;
 
     h1 {
