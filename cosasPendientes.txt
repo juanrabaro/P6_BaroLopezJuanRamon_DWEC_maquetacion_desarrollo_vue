@@ -10,12 +10,12 @@ ENTREGA CLIENTE
 -responsive servible ✅
 
 README del repositorio de vuestro proyecto es el primer punto de contacto con vuestro trabajo y debe proporcionar una visión clara y concisa de lo que es el proyecto y cómo interactuar con él. Aseguraos de incluir los siguientes elementos en vuestro README:
--Título del Proyecto: Un título claro y descriptivo de vuestra aplicación.
--Descripción: Una breve descripción del proyecto, incluyendo su propósito y funcionalidades principales.
--Tecnologías Utilizadas: Listado de las tecnologías, librerías y frameworks usados, especialmente aquellos relacionados con Vue.js.
+-Título del Proyecto: Un título claro y descriptivo de vuestra aplicación. ✅
+-Descripción: Una breve descripción del proyecto, incluyendo su propósito y funcionalidades principales. ✅
+-Tecnologías Utilizadas: Listado de las tecnologías, librerías y frameworks usados, especialmente aquellos relacionados con Vue.js. ✅
 -Capturas de Pantalla: Incluid capturas de pantalla de la aplicación para dar una vista previa visual de cómo se ve y funciona.
--Instrucciones de Instalación y Configuración: Detallad los pasos necesarios para instalar y configurar el proyecto localmente, incluyendo la instalación de dependencias, variables de entorno necesarias, etc.
--Uso de la Aplicación: Una guía breve sobre cómo utilizar la aplicación, destacando características especiales o secciones importantes.
+-Instrucciones de Instalación y Configuración: Detallad los pasos necesarios para instalar y configurar el proyecto localmente, incluyendo la instalación de dependencias, variables de entorno necesarias, etc. ✅
+-Uso de la Aplicación: Una guía breve sobre cómo utilizar la aplicación, destacando características especiales o secciones importantes. ✅
 -Despliegue: Proporcionad el enlace al despliegue en línea de vuestra aplicación.
 -Autores y Reconocimientos: Mencionad a los miembros del equipo y cualquier reconocimiento a terceros que hayan contribuido o cuyos recursos hayáis utilizado (con las debidas referencias y créditos).
 -Licencia: Si aplica, incluid información sobre la licencia bajo la cual se distribuye el proyecto.
