@@ -33,12 +33,20 @@ Estilado:
 
 ## Capturas
 
+**Pagina principal:**
+Aquí se buscará el tiempo de la ciudad y aparecerá tanto el tiempo, como más información y abajo del todo los formularios de registro e inicio de sesión.
 ![Img](/public/captura1.png)
 ![Img](/public/captura2.png)
 ![Img](/public/captura3.png)
 ![Img](/public/captura4.png)
+**WorldTime**:
+Aquí se puede buscar la hora actual en la ciudad que se busque.
 ![Img](/public/captura5.png)
+**Compare Weathers**:
+Aquí se pueden comparar el tiempo de dos ciudades distintas simultáneamente con información resumida para poder compararlos.
 ![Img](/public/captura6.png)
+**Contact Page**:
+Una página simple con un formulario de contacto simple para contactarnos para sugerencias o errores o cualquier otra cosa.
 ![Img](/public/captura7.png)
 
 ## Instrucciones de instalación
