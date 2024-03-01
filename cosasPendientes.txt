@@ -20,6 +20,7 @@ README del repositorio de vuestro proyecto es el primer punto de contacto con vu
 -Autores y Reconocimientos: Mencionad a los miembros del equipo y cualquier reconocimiento a terceros que hayan contribuido o cuyos recursos hayáis utilizado (con las debidas referencias y créditos).
 -Licencia: Si aplica, incluid información sobre la licencia bajo la cual se distribuye el proyecto.
 -Reflexiones y Aprendizajes: (Opcional) Un apartado donde reflexionéis sobre el proceso de aprendizaje, los desafíos enfrentados y cómo los superasteis.
+✅
 
 -guión entrega proyecto(Markdown)
 1. Portada.
@@ -29,25 +30,21 @@ idea inicial, de las tecnologías a utilizar y de antecedentes
 (aplicaciones similares).
 4. Descripción: Descripción del resultado obtenido: funcionalidades,
 organización, etc.
-5. Instalación y preparación: Todo lo necesario para hacer funcionar el
+5. Vídeo
+6. Instalación y preparación: Todo lo necesario para hacer funcionar el
 proyecto y cómo se instala. Edición de los archivos de configuración,
 creación y puesta en funcionamiento del control de versiones en
 github, etc.
-6. Guía de estilos y prototipado. Se incluye tanto la guía de estilos
+7. Guía de estilos y prototipado. Se incluye tanto la guía de estilos
 como los wireframe o mockups de la aplicación.
-7. Diseño: Descripción y diagramas de diseño: entidad relación, casos
 de uso, diagramas de flujo...etc. Es preferible usar el estándar UML.
 8. Desarrollo: Secuencia de desarrollo, dificultades encontradas y
 decisiones afrontadas. Descripción de las herramientas de control de
 versiones y revisión del código utilizadas.
-9. Pruebas: Descripción de las pruebas realizadas y automatización de
-las pruebas unitarias.
-10. Despliegue: Tecnología de despliegue y descripción del proceso.
-11. Manual: Manual de uso de la aplicación.
-12. Conclusiones: Comparación del resultado con la idea inicial y mejoras
+9. Despliegue: Tecnología de despliegue y descripción del proceso.
+10. Manual: Manual de uso de la aplicación.
+11. Conclusiones: Comparación del resultado con la idea inicial y mejoras
 futuras.
-13. Índice de tablas e imágenes.
-14. Bibliografía y referencias.
 
 
 ENTREGA SERVIDOR
