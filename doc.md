@@ -40,6 +40,8 @@ El objetivo principal del proyecto es desarrollar una plataforma funcional y acc
 
 ## 3- Vídeo presentación mostrando el funcionamiento de la página
 
+[Vídeo presentación](https://drive.google.com/file/d/1DrWEkoIqICftx8_fMnLsHfsBif2lgWSz/view?usp=sharing)
+
 ## 4- Instalación y preparación
 
 Todo lo necesario para hacer funcionar el proyecto y cómo se instala. Edición de los archivos de configuración, creación y puesta en funcionamiento del control de versiones en github.
