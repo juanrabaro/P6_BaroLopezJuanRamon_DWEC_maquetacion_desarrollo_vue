@@ -1,14 +1,14 @@
 # Weather Hub
 
-Hecha por Juan Ramón Baro López 2ºDAW
+[Documentación](/doc.md)
 
-<!-- [Vídeo demostración básica hasta el momento](https://drive.google.com/file/d/1lykoamfandeOf0qpfGHJr9I8GGSl-Rss/view?usp=sharing) -->
+Hecha por Juan Ramón Baro López 2ºDAW
 
 ## Descripción
 
 La idea principal del proyecto es una página web del tiempo y donde también se podrá ver la hora de cualquier país en tiempo real.
 
-Funcionalidades:
+**Funcionalidades:**
 
 - Mostrar tiempo(datos metereológicos) en la ciudad que se elija, aquí se verán más datos sobre la ciudad elegida como una foto, población, el área del terreno que ocupa, etc...
 - Capacidad de mostrar el tiempo de dos lugares para comparar los datos.
